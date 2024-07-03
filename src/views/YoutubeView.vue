@@ -16,7 +16,7 @@
           <iframe
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/gWotBPtsulo?si=ACHLMpjDIuOZTZUB"
+            :src="iframeSrc"
             title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -45,8 +45,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-
+import { computed, onMounted } from 'vue'
+const iframeSrc = computed(() => `https://www.youtube.com/embed/gWotBPtsulo`)
 onMounted(() => {})
 </script>
 
