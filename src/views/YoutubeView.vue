@@ -24,7 +24,10 @@
             allowfullscreen
           ></iframe>
         </div>
-        <div>subtitle</div>
+        <div class="text-zinc-400 pt-3 text-center grid grid-cols-1 grid-rows-2 items-center">
+          <div class="text-2xl">What's level of your English.</div>
+          <div class="text-lg">你认为你的中文水平如何？</div>
+        </div>
       </div>
     </div>
     <div
