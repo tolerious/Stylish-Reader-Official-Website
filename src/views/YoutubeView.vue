@@ -45,9 +45,43 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { computed, onMounted, ref } from 'vue'
+import { httpRequest } from '../utils/requestUtils'
+
+import axios from 'axios'
 const iframeSrc = computed(() => `https://www.youtube.com/embed/gWotBPtsulo`)
-onMounted(() => {})
+const route = useRoute()
+const youtubeId = ref('')
+
+function eventListenerFromContentScript() {
+  document.addEventListener('fromYoutubeVideoContentScript', (event: any) => {
+    const details = JSON.parse(event.detail)
+    switch (details.type) {
+      case 'subtitle':
+        console.log(details.data)
+        break
+      default:
+        break
+    }
+  })
+}
+
+async function getYoutubeVideoDetail(videoId: string): Promise<void> {
+  const r = await httpRequest.get(`/article/youtube/detail/${videoId}`)
+  console.log(r.data.data)
+}
+
+onMounted(async () => {
+  // const url =
+  //   'https://www.youtube.com/api/timedtext?v=uYFtWVv5F3E&ei=jgmKZoilGfqyz7sPr--DgAo&caps=asr&opi=112496729&exp=xbt&xoaf=5&hl=zh-CN&ip=0.0.0.0&ipbits=0&expire=1720347646&sparams=ip%2Cipbits%2Cexpire%2Cv%2Cei%2Ccaps%2Copi%2Cexp%2Cxoaf&signature=E94037FB8F4DEA453DE83FA360D44ED8AF92A8E9.9F289FA965CC38C213A19B0CC061BCF376248409&key=yt8&kind=asr&lang=en&fmt=json3&xorb=2&xobt=3&xovt=3&cbr=Firefox&cbrver=127.0&c=WEB&cver=2.20240702.09.00&cplayer=UNIPLAYER&cos=Windows&cosver=10.0&cplatform=DESKTOP&tlang=zh-Hans'
+  // const t = await axios.get(url)
+  // console.log(t.data)
+  eventListenerFromContentScript()
+  console.log(route.params)
+  youtubeId.value = route.params.youtubeId as string
+  getYoutubeVideoDetail(youtubeId.value)
+})
 </script>
 
 <style scoped></style>
