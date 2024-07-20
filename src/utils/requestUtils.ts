@@ -1,14 +1,15 @@
 // src/axios.ts
+import router from '@/router'
 import axios, {
   AxiosError,
   type AxiosInstance,
   type AxiosRequestConfig,
   type AxiosResponse
 } from 'axios'
-
+console.log(import.meta.env.VITE_API_URL)
 const instance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL, // 替换为你的API基础URL
-  timeout: 10000,
+  timeout: 5000,
   headers: { 'Content-Type': 'application/json' }
 })
 
@@ -33,6 +34,9 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
+    if (response.data.code === 401) {
+      router.push('/login')
+    }
     return response
   },
   (error) => {

@@ -17,6 +17,11 @@ const router = createRouter({
       component: () => import('@/views/AboutView.vue')
     },
     {
+      path: '/my/list',
+      name: 'myList',
+      component: () => import('@/views/VideoListView.vue')
+    },
+    {
       path: '/youtube/:youtubeId',
       name: 'youtube',
       component: () => import('@/views/YoutubeView.vue')
