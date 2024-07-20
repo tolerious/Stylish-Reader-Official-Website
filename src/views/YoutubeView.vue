@@ -18,7 +18,6 @@
             height="100%"
             :src="iframeSrc"
             title="YouTube video player"
-            frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen
@@ -33,11 +32,13 @@
     <div
       class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-sm p-2 overflow-y-scroll"
     >
-      <div v-for="item in 300" class="mb-3">
+      <div v-for="(enData, index) in enTranscriptData" :key="enData.tStartMs" class="mb-3">
         <div class="leading-tight text-amber-400 text-stone-500">
-          Do you think you're C1 (advanced level) in English?Take this test and find out your level.
+          {{ convertSegmentListToString(enData.segs) }}
         </div>
-        <div class="text-stone-500 text-xs">你认为的中文水平如何呢？</div>
+        <div class="text-stone-500 text-xs">
+          {{ convertSegmentListToString(zhTranscriptData[index].segs) }}
+        </div>
       </div>
     </div>
     <div class="row-span-1 col-span-2 h-12 border-t-gray-700 border-t-[0.5px]">3</div>
@@ -45,31 +46,47 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import { computed, onMounted, ref } from 'vue'
-import { httpRequest } from '../utils/requestUtils'
+import { onMounted, ref, type Ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { httpRequest } from '../utils/requestUtils';
+import type { Segment, Transcript } from '@/types';
 
-import axios from 'axios'
-const iframeSrc = computed(() => `https://www.youtube.com/embed/gWotBPtsulo`)
-const route = useRoute()
-const youtubeId = ref('')
+const preFixUrl = 'https://www.youtube.com/embed';
+const iframeSrc = ref('');
+const route = useRoute();
+const youtubeId = ref('');
+const enTranscriptData: Ref<Transcript[]> = ref([]);
+const zhTranscriptData: Ref<Transcript[]> = ref([]);
 
 function eventListenerFromContentScript() {
   document.addEventListener('fromYoutubeVideoContentScript', (event: any) => {
-    const details = JSON.parse(event.detail)
+    const details = JSON.parse(event.detail);
     switch (details.type) {
       case 'subtitle':
-        console.log(details.data)
-        break
+        console.log(details.data);
+        break;
       default:
-        break
+        break;
     }
-  })
+  });
+}
+
+function convertSegmentListToString(segments: Segment[]) {
+  return segments.map((segment) => segment.utf8).join(' ');
 }
 
 async function getYoutubeVideoDetail(videoId: string): Promise<void> {
-  const r = await httpRequest.get(`/article/youtube/detail/${videoId}`)
-  console.log(r.data.data)
+  const r = await httpRequest.get(`/article/youtube/detail/${videoId}`);
+  const enData = JSON.parse(r.data.data.enTranscriptData).events;
+  const zhData = JSON.parse(r.data.data.cnTranscriptData).events;
+  console.log(enData);
+  console.log(zhData);
+  if (enData.length !== zhData.length) {
+    alert('翻译文件出错，请联系管理员');
+    return;
+  }
+  enTranscriptData.value = enData;
+  zhTranscriptData.value = zhData;
 }
 
 onMounted(async () => {
@@ -77,11 +94,12 @@ onMounted(async () => {
   //   'https://www.youtube.com/api/timedtext?v=uYFtWVv5F3E&ei=jgmKZoilGfqyz7sPr--DgAo&caps=asr&opi=112496729&exp=xbt&xoaf=5&hl=zh-CN&ip=0.0.0.0&ipbits=0&expire=1720347646&sparams=ip%2Cipbits%2Cexpire%2Cv%2Cei%2Ccaps%2Copi%2Cexp%2Cxoaf&signature=E94037FB8F4DEA453DE83FA360D44ED8AF92A8E9.9F289FA965CC38C213A19B0CC061BCF376248409&key=yt8&kind=asr&lang=en&fmt=json3&xorb=2&xobt=3&xovt=3&cbr=Firefox&cbrver=127.0&c=WEB&cver=2.20240702.09.00&cplayer=UNIPLAYER&cos=Windows&cosver=10.0&cplatform=DESKTOP&tlang=zh-Hans'
   // const t = await axios.get(url)
   // console.log(t.data)
-  eventListenerFromContentScript()
-  console.log(route.params)
-  youtubeId.value = route.params.youtubeId as string
-  getYoutubeVideoDetail(youtubeId.value)
-})
+  eventListenerFromContentScript();
+  console.log(route.params);
+  youtubeId.value = route.params.youtubeId as string;
+  iframeSrc.value = `${preFixUrl}/${youtubeId.value}`;
+  getYoutubeVideoDetail(youtubeId.value);
+});
 </script>
 
 <style scoped></style>

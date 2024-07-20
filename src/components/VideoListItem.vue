@@ -17,6 +17,6 @@ const props = defineProps({
 });
 
 function redirectToDetail() {
-  router.push(`/youtube/${props.video._id}`);
+  router.push(`/youtube/${props.video.youtubeVideoId}`);
 }
 </script>
