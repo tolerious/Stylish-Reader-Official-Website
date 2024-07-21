@@ -18,7 +18,7 @@
         <div class="leading-tight text-amber-400 text-stone-500">
           {{ convertSegmentListToString(enData.segs) }}
         </div>
-        <div class="text-stone-500 text-xs">
+        <div class="text-stone-500 text-xs" v-if="showZhTranscript">
           {{ convertSegmentListToString(zhTranscriptData[index].segs) }}
         </div>
       </div>
@@ -40,8 +40,12 @@ const youtubeId = ref('');
 const enTranscriptData: Ref<Transcript[]> = ref([]);
 const zhTranscriptData: Ref<Transcript[]> = ref([]);
 const player: Ref<YT.Player | null> = ref(null);
+const showZhTranscript = ref(false);
 
 function convertSegmentListToString(segments: Segment[]) {
+  if (!segments) {
+    return '';
+  }
   return segments.map((segment) => segment.utf8).join(' ');
 }
 
@@ -51,8 +55,10 @@ async function getYoutubeVideoDetail(videoId: string): Promise<void> {
   const zhData = JSON.parse(r.data.data.cnTranscriptData).events;
 
   if (enData.length !== zhData.length) {
-    alert('翻译文件出错，请联系管理员');
-    return;
+    console.log('翻译文件出错，请联系管理员');
+    showZhTranscript.value = false;
+  } else {
+    showZhTranscript.value = true;
   }
   enTranscriptData.value = enData;
   zhTranscriptData.value = zhData;
@@ -92,6 +98,6 @@ onMounted(async () => {
     initializeVideo(youtubeId.value);
   }, 800);
   iframeSrc.value = `${preFixUrl}/${youtubeId.value}`;
-  getYoutubeVideoDetail(youtubeId.value);
+  await getYoutubeVideoDetail(youtubeId.value);
 });
 </script>
