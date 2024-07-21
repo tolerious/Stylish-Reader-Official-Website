@@ -1,19 +1,19 @@
 <template>
-  <main></main>
+  <div class="p-5 text-center"><router-link to="/my/list">视频列表</router-link></div>
 </template>
 
 <script setup lang="ts">
-import { pingPong } from '@/constants'
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { httpRequest } from '../utils/requestUtils'
-const router = useRouter()
+import { pingPong } from '@/constants';
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { httpRequest } from '../utils/requestUtils';
+const router = useRouter();
 onMounted(() => {
   httpRequest.get(pingPong).then((res) => {
-    console.log(res.data)
+    console.log(res.data);
     if (res.data.code !== 200) {
-      router.push('/login')
+      router.push('/login');
     }
-  })
-})
+  });
+});
 </script>
