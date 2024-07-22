@@ -6,19 +6,31 @@
           <div id="player"></div>
         </div>
         <div class="text-zinc-400 pt-3 text-center grid grid-cols-1 grid-rows-2 items-center">
-          <div class="text-2xl">What's level of your English.</div>
-          <div class="text-lg">你认为你的中文水平如何？</div>
+          <div class="text-2xl">{{ currentTranscriptText }}</div>
+          <div class="text-lg" v-if="showZhTranscript">{{ currentZhTranscriptText }}</div>
         </div>
       </div>
     </div>
     <div
-      class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-sm p-2 overflow-y-scroll"
+      class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-base p-2 overflow-y-scroll"
+      v-if="playerIsReady"
     >
       <div v-for="(enData, index) in enTranscriptData" :key="enData.tStartMs" class="mb-3">
-        <div class="leading-tight text-amber-400 text-stone-500">
+        <div
+          class="leading-tight"
+          :class="[
+            shouldHightLightText(enData) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
+          ]"
+        >
           {{ convertSegmentListToString(enData.segs) }}
         </div>
-        <div class="text-stone-500 text-xs" v-if="showZhTranscript">
+        <div
+          class="text-xs"
+          :class="[
+            shouldHightLightText(enData) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
+          ]"
+          v-if="showZhTranscript"
+        >
           {{ convertSegmentListToString(zhTranscriptData[index].segs) }}
         </div>
       </div>
@@ -29,7 +41,7 @@
 
 <script setup lang="ts">
 import type { Segment, Transcript } from '@/types';
-import { onMounted, ref, type Ref } from 'vue';
+import { computed, onMounted, ref, type Ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
 
@@ -37,10 +49,69 @@ const preFixUrl = 'https://www.youtube.com/embed';
 const iframeSrc = ref('');
 const route = useRoute();
 const youtubeId = ref('');
+const playerIsReady = ref(false);
 const enTranscriptData: Ref<Transcript[]> = ref([]);
 const zhTranscriptData: Ref<Transcript[]> = ref([]);
 const player: Ref<YT.Player | null> = ref(null);
 const showZhTranscript = ref(false);
+const currentTime = ref(0);
+
+const currentTranscriptText = computed(() => {
+  const seg = enTranscriptData.value.find((transcript: Transcript) => {
+    const startTime = transcript.tStartMs / 1000;
+    const endTime = transcript.dDurationMs / 1000 + startTime;
+    return currentTime.value >= startTime && currentTime.value <= endTime;
+  });
+  return seg?.segs.map((seg) => seg.utf8).join(' ');
+});
+
+const currentZhTranscriptText = computed(() => {
+  if (showZhTranscript.value) {
+    const seg = zhTranscriptData.value.find((transcript: Transcript) => {
+      const startTime = transcript.tStartMs / 1000;
+      const endTime = transcript.dDurationMs / 1000 + startTime;
+      return currentTime.value >= startTime && currentTime.value <= endTime;
+    });
+    return seg?.segs.map((seg) => seg.utf8).join(' ');
+  }
+  return '';
+});
+
+function scrollElement() {
+  const element = document.querySelector('.highlight');
+  if (element) {
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest'
+    });
+  }
+  const elementCopy = document.querySelector('.highlight-right');
+  if (elementCopy) {
+    elementCopy.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest'
+    });
+  }
+}
+
+function updateCurrentTime() {
+  setInterval(() => {
+    currentTime.value = player.value?.getCurrentTime()!;
+    scrollElement();
+  }, 40);
+}
+
+function shouldHightLightText(transcript: Transcript): boolean {
+  if (transcript && transcript.segs) {
+    const startTime = transcript.tStartMs / 1000;
+    const endTime = transcript.dDurationMs / 1000 + startTime;
+    return currentTime.value >= startTime && currentTime.value <= endTime;
+  } else {
+    return false;
+  }
+}
 
 function convertSegmentListToString(segments: Segment[]) {
   if (!segments) {
@@ -65,7 +136,8 @@ async function getYoutubeVideoDetail(videoId: string): Promise<void> {
 }
 
 function onPlayerReady(event: any) {
-  console.log(event);
+  playerIsReady.value = true;
+  updateCurrentTime();
   if (player.value) {
     document.title = event.target.videoTitle;
   }
