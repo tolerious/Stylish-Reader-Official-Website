@@ -6,7 +6,7 @@
           <div id="player"></div>
         </div>
         <div class="text-zinc-400 pt-3 text-center grid grid-cols-1 grid-rows-2 items-center">
-          <div class="text-2xl text-amber-400">{{ currentTranscriptText }}</div>
+          <div class="text-2xl text-amber-400" v-html="currentTranscriptText"></div>
           <div class="text-lg">{{ currentZhTranscriptText }}</div>
         </div>
       </div>
@@ -111,15 +111,13 @@ const currentTranscriptText = computed(() => {
       return false;
     }
   });
-  return segs
-    .map((seg) => {
-      if (seg && seg.segs) {
-        return seg.segs.map((seg) => seg.utf8).join(' ');
-      } else {
-        return '';
-      }
-    })
-    .join(' ');
+
+  const seg = segs[segs.length - 1];
+  if (seg && seg.segs) {
+    return seg.segs.map((seg) => seg.utf8).join('');
+  } else {
+    return '';
+  }
 });
 
 const currentZhTranscriptText = computed(() => {
@@ -133,17 +131,13 @@ const currentZhTranscriptText = computed(() => {
     }
   });
 
-  return segs
-    .map((seg) => {
-      if (seg && seg.segs) {
-        return seg.segs.map((seg) => seg.utf8).join(' ');
-      } else {
-        return '';
-      }
-    })
-    .join(' ');
+  const seg = segs[segs.length - 1];
+  if (seg && seg.segs) {
+    return seg.segs.map((seg) => seg.utf8).join('');
+  } else {
+    return '';
+  }
 });
-
 function scrollElement() {
   const element = document.querySelector('.highlight');
   if (element) {
