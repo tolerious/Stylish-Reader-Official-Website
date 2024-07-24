@@ -6,7 +6,7 @@
           <div id="player"></div>
         </div>
         <div class="text-zinc-400 pt-3 text-center grid grid-cols-1 grid-rows-2 items-center">
-          <div class="text-2xl">{{ currentTranscriptText }}</div>
+          <div class="text-2xl text-amber-400">{{ currentTranscriptText }}</div>
           <div class="text-lg">{{ currentZhTranscriptText }}</div>
         </div>
       </div>
@@ -101,7 +101,8 @@ const showZhTranscript = ref(false);
 const currentTime = ref(0);
 
 const currentTranscriptText = computed(() => {
-  const seg = enTranscriptData.value.find((transcript: Transcript) => {
+  console.log('current transcript.');
+  const segs = enTranscriptData.value.filter((transcript: Transcript) => {
     if (transcript.segs) {
       const startTime = transcript.tStartMs / 1000;
       const endTime = transcript.dDurationMs / 1000 + startTime;
@@ -110,15 +111,19 @@ const currentTranscriptText = computed(() => {
       return false;
     }
   });
-  if (seg && seg.segs) {
-    return seg.segs.map((seg) => seg.utf8).join(' ');
-  } else {
-    return '';
-  }
+  return segs
+    .map((seg) => {
+      if (seg && seg.segs) {
+        return seg.segs.map((seg) => seg.utf8).join(' ');
+      } else {
+        return '';
+      }
+    })
+    .join(' ');
 });
 
 const currentZhTranscriptText = computed(() => {
-  const seg = zhTranscriptData.value.find((transcript: Transcript) => {
+  const segs = zhTranscriptData.value.filter((transcript: Transcript) => {
     if (transcript.segs) {
       const startTime = transcript.tStartMs / 1000;
       const endTime = transcript.dDurationMs / 1000 + startTime;
@@ -127,11 +132,16 @@ const currentZhTranscriptText = computed(() => {
       return false;
     }
   });
-  if (seg && seg.segs) {
-    return seg?.segs.map((seg) => seg.utf8).join(' ');
-  } else {
-    return '';
-  }
+
+  return segs
+    .map((seg) => {
+      if (seg && seg.segs) {
+        return seg.segs.map((seg) => seg.utf8).join(' ');
+      } else {
+        return '';
+      }
+    })
+    .join(' ');
 });
 
 function scrollElement() {
