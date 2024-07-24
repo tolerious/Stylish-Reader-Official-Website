@@ -1,8 +1,8 @@
 <template>
-  <div class="grid grid-rows-[1fr_auto] grid-cols-[1300px_1fr] h-full bg-black">
+  <div class="grid grid-rows-[1fr_auto] grid-cols-[70%_1fr] h-full bg-black">
     <div class="row-span-1 col-span-1">
-      <div class="h-full w-full grid grid-cols-1 grid-rows-[720px_1fr]">
-        <div class="mx-auto my-0 mt-3" style="height: 720px; width: 1280px">
+      <div class="h-full w-full grid grid-cols-1 grid-rows-[85%_1fr]">
+        <div class="mx-auto my-0 mt-3 w-full">
           <div id="player"></div>
         </div>
         <div class="text-zinc-400 pt-3 text-center grid grid-cols-1 grid-rows-2 items-center">
@@ -212,6 +212,7 @@ function initializeVideo(videoId: string): void {
   player.value = new YT.Player('player', {
     height: '100%',
     width: '100%',
+    border: 'none',
     videoId,
     events: {
       onReady: onPlayerReady,

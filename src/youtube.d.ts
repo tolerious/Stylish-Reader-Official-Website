@@ -8,6 +8,7 @@ declare module YT {
     height: string;
     width: string;
     videoId: string;
+    border: string;
     events: {
       onReady: (event: Event) => void;
       onStateChange: (event: Event) => void;
