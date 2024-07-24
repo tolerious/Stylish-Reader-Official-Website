@@ -1,7 +1,7 @@
 <template>
   <div class="cursor-pointer p-2 rounded-sm shadow-sm bg-orange-300" @click="redirectToDetail()">
     <div>{{ video.title }}</div>
-    <div class="text-sm">{{ video.createdAt }}</div>
+    <div class="text-sm">Create Time: {{ video.createdAt }}</div>
   </div>
 </template>
 
