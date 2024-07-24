@@ -13,13 +13,14 @@
     </div>
     <template v-if="!showZhTranscript">
       <div class="row-span-1 col-span-1 overflow-y-hidden">
-        <div class="grid grid-rows-[50%_50%] h-full" v-if="playerIsReady">
+        <div class="overflow-y-hidden grid grid-rows-[50%_50%] h-full" v-if="playerIsReady">
           <div class="overflow-y-scroll border-b-gray-800 border-b-[0.5px]">
             <div
-              class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-base p-2"
+              class="max-h-full row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-base p-2"
               v-if="playerIsReady"
+              style="height: 100%; max-height: 100%"
             >
-              <div v-for="enData in enTranscriptData" :key="enData.tStartMs" class="mb-3">
+              <div v-for="enData in enTranscriptData" :key="enData.tStartMs" class="mb-1">
                 <div
                   :class="[
                     shouldHightLightText(enData)
@@ -84,7 +85,7 @@
 
 <script setup lang="ts">
 import type { Segment, Transcript } from '@/types';
-import { computed, onMounted, ref, watch, type Ref } from 'vue';
+import { computed, onMounted, ref, type Ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
 

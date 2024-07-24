@@ -3,11 +3,11 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
         class="mx-auto h-10 w-auto"
-        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+        src="../assets//images/stylish-reader.svg"
         alt="Your Company"
       />
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-        Sign in to your account
+        Sign in to <span class="text-pink-600">Stylish Reader</span>
       </h2>
     </div>
 
@@ -25,7 +25,7 @@
               autocomplete="email"
               required="true"
               v-model="username"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6"
             />
           </div>
         </div>
@@ -36,7 +36,7 @@
               >Password</label
             >
             <div class="text-sm">
-              <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500"
+              <a href="#" class="font-semibold text-pink-600 hover:text-pink-500"
                 >Forgot password?</a
               >
             </div>
@@ -49,7 +49,7 @@
               autocomplete="current-password"
               required="true"
               v-model="password"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6"
             />
           </div>
         </div>
@@ -58,7 +58,7 @@
           <button
             type="submit"
             @click="handleSubmit"
-            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            class="flex w-full justify-center rounded-md bg-pink-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600"
           >
             Sign in
           </button>
@@ -68,7 +68,7 @@
       <p class="mt-10 text-center text-sm text-gray-500">
         Not a member?
         {{ ' ' }}
-        <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+        <a href="#" class="font-semibold leading-6 text-pink-600 hover:text-pink-500"
           >Start a 14 day free trial</a
         >
       </p>
@@ -77,23 +77,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { httpRequest } from '../utils/requestUtils'
-const username = ref('')
-const password = ref('')
+import { ref } from 'vue';
+import { httpRequest } from '../utils/requestUtils';
+import { useRouter } from 'vue-router';
+const username = ref('');
+const password = ref('');
+const router = useRouter();
 async function handleSubmit(event: any) {
-  event.preventDefault()
-  console.log('...')
+  event.preventDefault();
+  console.log('...');
   const r = await httpRequest.post('/logic/login', {
     username: username.value,
     password: password.value
-  })
-  console.log(r.data.data.token)
+  });
+  console.log(r.data.data.token);
   if (r.data.code === 200) {
-    localStorage.setItem('token', r.data.data.token)
-    alert('登陆成功')
+    localStorage.setItem('token', r.data.data.token);
+    router.push('/');
+    alert('登陆成功');
   } else {
-    alert('登陆失败')
+    alert('登陆失败');
   }
 }
 </script>
