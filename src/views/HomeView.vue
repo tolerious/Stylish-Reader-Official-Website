@@ -14,7 +14,6 @@ import { httpRequest } from '../utils/requestUtils';
 const router = useRouter();
 onMounted(() => {
   httpRequest.get(pingPong).then((res) => {
-    console.log(res.data);
     if (res.data.code !== 200) {
       router.push('/login');
     }

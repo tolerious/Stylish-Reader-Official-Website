@@ -6,7 +6,6 @@ import axios, {
   type AxiosRequestConfig,
   type AxiosResponse
 } from 'axios'
-console.log(import.meta.env.VITE_API_URL)
 const instance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL, // 替换为你的API基础URL
   timeout: 5000,

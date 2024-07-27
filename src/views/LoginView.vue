@@ -85,12 +85,10 @@ const password = ref('');
 const router = useRouter();
 async function handleSubmit(event: any) {
   event.preventDefault();
-  console.log('...');
   const r = await httpRequest.post('/logic/login', {
     username: username.value,
     password: password.value
   });
-  console.log(r.data.data.token);
   if (r.data.code === 200) {
     localStorage.setItem('token', r.data.data.token);
     router.push('/');

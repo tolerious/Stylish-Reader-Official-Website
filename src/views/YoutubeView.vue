@@ -101,7 +101,6 @@ const showZhTranscript = ref(false);
 const currentTime = ref(0);
 
 const currentTranscriptText = computed(() => {
-  console.log('current transcript.');
   const segs = enTranscriptData.value.filter((transcript: Transcript) => {
     if (transcript.segs) {
       const startTime = transcript.tStartMs / 1000;
@@ -187,7 +186,6 @@ async function getYoutubeVideoDetail(videoId: string): Promise<void> {
   const zhData = JSON.parse(r.data.data.cnTranscriptData).events;
 
   if (enData.length !== zhData.length) {
-    console.log('翻译文件出错，请联系管理员');
     showZhTranscript.value = false;
   } else {
     showZhTranscript.value = true;
