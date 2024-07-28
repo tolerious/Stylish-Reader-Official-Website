@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <template v-if="!showZhTranscript">
+    <template v-if="!isTranscriptConsistent">
       <div class="row-span-1 col-span-1 overflow-y-hidden">
         <div class="overflow-y-hidden grid grid-rows-[50%_50%] h-full" v-if="playerIsReady">
           <div class="overflow-y-scroll border-b-gray-800 border-b-[0.5px]">
@@ -62,7 +62,7 @@
         <div v-for="(enData, index) in enTranscriptData" :key="enData.tStartMs" class="mb-3">
           <div
             :class="[
-              shouldHightLightText(enData) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
+              shouldHightLightText(enData) ? ['text-amber-400', 'highlight'] : 'text-stone-400'
             ]"
           >
             {{ convertSegmentListToString(enData.segs) }}
@@ -70,7 +70,7 @@
           <div
             class="text-xs"
             :class="[
-              shouldHightLightText(enData) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
+              shouldHightLightText(enData) ? ['text-amber-400', 'highlight'] : 'text-stone-400'
             ]"
           >
             {{ convertSegmentListToString(zhTranscriptData[index].segs) }}
@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Segment, Transcript } from '@/types';
+import { PlayerState, type Segment, type Transcript } from '@/types';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
@@ -97,8 +97,9 @@ const playerIsReady = ref(false);
 const enTranscriptData: Ref<Transcript[]> = ref([]);
 const zhTranscriptData: Ref<Transcript[]> = ref([]);
 const player: Ref<YT.Player | null> = ref(null);
-const showZhTranscript = ref(false);
+const isTranscriptConsistent = ref(false);
 const currentTime = ref(0);
+const currentPlayerState = ref(PlayerState.NotStarted);
 
 const currentTranscriptText = computed(() => {
   const segs = enTranscriptData.value.filter((transcript: Transcript) => {
@@ -159,7 +160,10 @@ function scrollElement() {
 function updateCurrentTime() {
   setInterval(() => {
     currentTime.value = player.value?.getCurrentTime()!;
-    scrollElement();
+
+    if (currentPlayerState.value === PlayerState.Playing) {
+      scrollElement();
+    }
   }, 40);
 }
 
@@ -186,9 +190,9 @@ async function getYoutubeVideoDetail(videoId: string): Promise<void> {
   const zhData = JSON.parse(r.data.data.cnTranscriptData).events;
 
   if (enData.length !== zhData.length) {
-    showZhTranscript.value = false;
+    isTranscriptConsistent.value = false;
   } else {
-    showZhTranscript.value = true;
+    isTranscriptConsistent.value = true;
   }
   enTranscriptData.value = enData;
   zhTranscriptData.value = zhData;
@@ -202,7 +206,9 @@ function onPlayerReady(event: any) {
   }
 }
 
-function onPlayerStateChange(event: any) {}
+function onPlayerStateChange(event: any) {
+  currentPlayerState.value = event.data;
+}
 
 function createScriptTag(): void {
   let tag = document.createElement('script');
