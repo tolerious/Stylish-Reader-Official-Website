@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center bg-black py-2 max-h-full">
-    <div class=" w-11/12 flex flex-col gap-y-2">
+    <div class="w-11/12 flex flex-col gap-y-2">
       <video-list-item :video="video" v-for="video in videos" :key="video._id"></video-list-item>
     </div>
   </div>
@@ -17,8 +17,7 @@ const videos: Ref<Video[]> = ref([]);
 
 async function getVideos() {
   const r = await httpRequest.get(youtubeVideos);
-  const { data } = { ...r.data };
-  videos.value = data;
+  videos.value = r.data.data;
 }
 
 onMounted(() => {
