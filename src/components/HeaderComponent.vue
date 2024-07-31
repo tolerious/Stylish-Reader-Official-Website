@@ -8,10 +8,10 @@
     </div>
     <div class="col-span-2">
       <ul class="flex flex-row h-full items-center text-gray-950">
-        <li class="px-6 cursor-pointer hover:text-pink-600">About</li>
-        <li class="px-6 cursor-pointer hover:text-pink-600">Feature</li>
-        <li class="px-6 cursor-pointer hover:text-pink-600">Pricing</li>
-        <li class="px-6 cursor-pointer hover:text-pink-600">Testimonial</li>
+        <li class="px-6 cursor-pointer hover:text-pink-600"><a>About</a></li>
+        <li class="px-6 cursor-pointer hover:text-pink-600"><a>Feature</a></li>
+        <li class="px-6 cursor-pointer hover:text-pink-600"><a>Pricing</a></li>
+        <li class="px-6 cursor-pointer hover:text-pink-600"><a>Testimonial</a></li>
       </ul>
     </div>
     <div class="bg--300 flex justify-end items-center">
