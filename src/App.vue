@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col" :class="[isHeaderFooterVisible ? '' : 'h-full']">
-    <header-component></header-component>
+    <header-component :is-header-footer-visible="isHeaderFooterVisible"></header-component>
     <main class="flex-1 max-h-full" :class="[isHeaderFooterVisible ? 'mt-16' : '']">
       <RouterView />
     </main>
@@ -15,6 +15,6 @@ import HeaderComponent from './components/HeaderComponent.vue';
 const router = useRouter();
 const isHeaderFooterVisible = computed(() => {
   const routerName = router.currentRoute.value.name ?? '';
-  return !['youtube'].includes(routerName as string);
+  return !['youtube', 'login'].includes(routerName as string);
 });
 </script>
