@@ -4,13 +4,14 @@
     <main class="flex-1 max-h-full" :class="[isHeaderFooterVisible ? 'mt-16' : '']">
       <RouterView />
     </main>
-    <footer class="bg-blue-300 h-12" v-if="isHeaderFooterVisible">Footer</footer>
+    <footer-component :is-header-footer-visible="isHeaderFooterVisible"></footer-component>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import { RouterView, useRouter } from 'vue-router';
+import FooterComponent from './components/FooterComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 const router = useRouter();
 const isHeaderFooterVisible = computed(() => {

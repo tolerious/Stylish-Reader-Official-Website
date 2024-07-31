@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="p-5 text-center text-rose-600">
-      <router-link to="/my/list">视频列表</router-link>
+      <!-- <router-link to="/my/list">视频列表</router-link> -->
     </div>
   </div>
 </template>
