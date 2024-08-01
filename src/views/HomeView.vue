@@ -21,7 +21,7 @@
         </div>
         <div class="w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
       </div>
-      <div class="grid grid-cols-3 grid-rows-1 px-8 py-14 bg-slate-50 mt-5">
+      <div class="grid grid-cols-3 grid-rows-1 px-8 py-16 bg-slate-50 mt-5">
         <div v-for="data in bannerData" :key="data.iconName">
           <div class="grid grid-cols-2 grid-rows-2 gap-x-6">
             <div class="row-span-2 flex justify-end items-center">
@@ -38,7 +38,26 @@
           </div>
         </div>
       </div>
-      <div id="feature"></div>
+      <div id="feature" class="grid grid-rows-1 grid-cols-2 mt-5">
+        <div><img src="@/assets/images/features.webp" alt="" /></div>
+        <div class="flex justify-end">
+          <div class="w-[70%]">
+            <h3 class="text-3xl font-medium text-gray-900 leading-relaxed">
+              We Provide Many Features You Can Use
+            </h3>
+            <p class="my-3">
+              You can explore the features that we provide with fun and have their own functions
+              each feature.
+            </p>
+            <ul class="self-start list-inside">
+              <li>1. Powerfull online protection.</li>
+              <li>2. Powerfull online protection.</li>
+              <li>3. Powerfull online protection.</li>
+              <li>4. Powerfull online protection.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <div id="pricing"></div>
       <div id="testimonial"></div>
     </div>
