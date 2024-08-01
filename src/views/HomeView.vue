@@ -13,7 +13,7 @@
               interesting features from us.
             </p>
             <button
-              class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-36 animate-pulse hover:animate-none"
+              class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-36 hover:animate-none"
             >
               Get Started
             </button>
@@ -21,12 +21,12 @@
         </div>
         <div class="w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
       </div>
-      <div class="grid grid-cols-3 grid-rows-1 px-8 py-8 bg-slate-50">
+      <div class="grid grid-cols-3 grid-rows-1 px-8 py-14 bg-slate-50 mt-5">
         <div v-for="data in bannerData" :key="data.iconName">
           <div class="grid grid-cols-2 grid-rows-2 gap-x-6">
             <div class="row-span-2 flex justify-end items-center">
               <div class="w-12 h-12 bg-pink-200 flex justify-center items-center rounded-full">
-                <img class="w-6 h-6" :src="generateIcon(data.iconName)" alt="" srcset="" />
+                <img class="w-6 h-6" :src="data.iconName" alt="" srcset="" />
               </div>
             </div>
             <div class="text-xl font-bold">
@@ -50,23 +50,26 @@ import { pingPong } from '@/constants';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
+import userIcon from '@/assets/images/user.svg';
+import articleIcon from '@/assets/images/article.svg';
+import wordIcon from '@/assets/images/word.svg';
 const router = useRouter();
 
 const bannerData = [
   {
     topText: '500+',
     bottomText: 'Users',
-    iconName: 'user'
+    iconName: userIcon
   },
   {
     topText: '4000+',
-    bottomText: 'Articles',
-    iconName: 'article'
+    bottomText: 'Articles&Videos',
+    iconName: articleIcon
   },
   {
     topText: '20000+',
     bottomText: 'Words',
-    iconName: 'word'
+    iconName: wordIcon
   }
 ];
 
