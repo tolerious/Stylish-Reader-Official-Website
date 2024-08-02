@@ -11,6 +11,7 @@
         </div>
       </div>
     </div>
+    <!-- 中英文翻译不一致 -->
     <template v-if="!isTranscriptConsistent">
       <div class="row-span-1 col-span-1 overflow-y-hidden">
         <div class="overflow-y-hidden grid grid-rows-[50%_50%] h-full" v-if="playerIsReady">
@@ -229,6 +230,10 @@ function initializeVideo(videoId: string): void {
   });
 }
 
+async function getArticleTokenDetail(youtubeVideoId: string) {
+  const at = await httpRequest.post('/articletoken/detail', { youtubeVideoId });
+}
+
 onMounted(async () => {
   youtubeId.value = route.params.youtubeId as string;
   createScriptTag();
@@ -236,6 +241,7 @@ onMounted(async () => {
     initializeVideo(youtubeId.value);
   }, 800);
   iframeSrc.value = `${preFixUrl}/${youtubeId.value}`;
+
   await getYoutubeVideoDetail(youtubeId.value);
 });
 </script>
