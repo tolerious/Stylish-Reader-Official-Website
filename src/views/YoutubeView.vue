@@ -6,7 +6,11 @@
           <div id="player"></div>
         </div>
         <div class="text-zinc-400 pt-3 text-center grid grid-cols-1 grid-rows-2 items-center">
-          <div class="text-2xl text-amber-400" v-html="currentEnTranscriptText"></div>
+          <div class="text-2xl text-amber-400">
+            <div v-for="transcript in currentEnTranscriptText" :key="transcript">
+              {{ transcript }}
+            </div>
+          </div>
           <div class="text-lg">{{ currentZhTranscriptText }}</div>
         </div>
       </div>
@@ -15,25 +19,26 @@
     <template v-if="!isTranscriptConsistent">
       <div class="row-span-1 col-span-1 overflow-y-hidden">
         <div class="overflow-y-hidden grid grid-rows-[50%_50%] h-full" v-if="playerIsReady">
+          <!-- 英文显示区域 -->
           <div class="overflow-y-scroll border-b-gray-800 border-b-[0.5px]">
             <div
               class="max-h-full row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-base p-2"
               v-if="playerIsReady"
               style="height: 100%; max-height: 100%"
             >
-              <div v-for="enData in enTranscriptData" :key="enData.tStartMs" class="mb-1">
-                <div
-                  :class="[
-                    shouldHightLightText(enData)
-                      ? ['text-amber-400', 'highlight']
-                      : 'text-stone-500'
-                  ]"
-                >
-                  {{ convertSegmentListToString(enData.segs) }}
-                </div>
+              <div
+                v-for="[_, enData] in enTranscriptData"
+                :key="_"
+                class="mb-3"
+                :class="[
+                  shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
+                ]"
+              >
+                <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
               </div>
             </div>
           </div>
+          <!-- 中文显示区域 -->
           <div class="overflow-y-scroll">
             <div
               class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-sm p-2"
@@ -116,7 +121,7 @@ const currentEnTranscriptText = computed(() => {
         }
       }
     });
-    return currentEnTranscript.join('');
+    return currentEnTranscript.filter((transcript) => transcript !== '\n');
   }
   return '';
 });
