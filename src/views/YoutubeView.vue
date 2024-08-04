@@ -6,7 +6,7 @@
           <div id="player"></div>
         </div>
         <div class="text-zinc-400 pt-3 text-center grid grid-cols-1 grid-rows-2 items-center">
-          <div class="text-2xl text-amber-400" v-html="currentTranscriptText"></div>
+          <div class="text-2xl text-amber-400" v-html="currentEnTranscriptText"></div>
           <div class="text-lg">{{ currentZhTranscriptText }}</div>
         </div>
       </div>
@@ -57,25 +57,16 @@
     </template>
     <template v-else>
       <div
-        class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-base p-2 overflow-y-scroll"
+        class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-lg p-2 overflow-y-scroll"
         v-if="playerIsReady"
       >
-        <div v-for="(enData, index) in enTranscriptData" :key="enData.tStartMs" class="mb-3">
-          <div
-            :class="[
-              shouldHightLightText(enData) ? ['text-amber-400', 'highlight'] : 'text-stone-400'
-            ]"
-          >
-            {{ convertSegmentListToString(enData.segs) }}
-          </div>
-          <div
-            class="text-xs"
-            :class="[
-              shouldHightLightText(enData) ? ['text-amber-400', 'highlight'] : 'text-stone-400'
-            ]"
-          >
-            {{ convertSegmentListToString(zhTranscriptData[index].segs) }}
-          </div>
+        <div
+          v-for="[_, enData] in enTranscriptData"
+          :key="_"
+          class="mb-3"
+          :class="[shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500']"
+        >
+          <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
         </div>
       </div>
     </template>
@@ -85,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import { PlayerState, type Segment, type Transcript } from '@/types';
+import { PlayerState, type ArticleToken, type Segment, type Transcript } from '@/types';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
@@ -95,30 +86,36 @@ const iframeSrc = ref('');
 const route = useRoute();
 const youtubeId = ref('');
 const playerIsReady = ref(false);
-const enTranscriptData: Ref<Transcript[]> = ref([]);
+const enTranscriptData: Ref<Map<string, ArticleToken> | null> = ref(null);
 const zhTranscriptData: Ref<Transcript[]> = ref([]);
 const player: Ref<YT.Player | null> = ref(null);
 const isTranscriptConsistent = ref(false);
 const currentTime = ref(0);
 const currentPlayerState = ref(PlayerState.NotStarted);
 
-const currentTranscriptText = computed(() => {
-  const segs = enTranscriptData.value.filter((transcript: Transcript) => {
-    if (transcript.segs) {
-      const startTime = transcript.tStartMs / 1000;
-      const endTime = transcript.dDurationMs / 1000 + startTime;
-      return currentTime.value >= startTime && currentTime.value <= endTime;
-    } else {
-      return false;
-    }
-  });
-
-  const seg = segs[segs.length - 1];
-  if (seg && seg.segs) {
-    return seg.segs.map((seg) => seg.utf8).join('');
-  } else {
-    return '';
+const currentEnTranscriptText = computed(() => {
+  if (enTranscriptData.value !== null) {
+    const keys = Array.from(enTranscriptData.value.keys());
+    const meetConditionKeys = keys.filter((key) => {
+      const [startTime, duration] = key.split('-');
+      if (duration !== 'newline') {
+        return (
+          currentTime.value >= Number.parseInt(startTime) / 1000 &&
+          currentTime.value <= (Number.parseInt(startTime) + Number.parseInt(duration)) / 1000
+        );
+      }
+    });
+    const currentEnTranscript = meetConditionKeys.map((key) => {
+      if (enTranscriptData.value !== undefined && enTranscriptData.value !== null) {
+        const target = enTranscriptData.value.get(key);
+        if (target) {
+          return target.originTextString;
+        }
+      }
+    });
+    return currentEnTranscript.join('');
   }
+  return '';
 });
 
 const currentZhTranscriptText = computed(() => {
@@ -168,6 +165,16 @@ function updateCurrentTime() {
   }, 40);
 }
 
+function shouldHightLightEnText(tokenStartAndDuration: string): boolean {
+  const [startTime, duration] = tokenStartAndDuration.split('-');
+  if (duration === 'newline') {
+    return false;
+  }
+  const s = Number.parseInt(startTime) / 1000;
+  const e = (Number.parseInt(duration) + Number.parseInt(startTime)) / 1000;
+  return currentTime.value >= s && currentTime.value <= e;
+}
+
 function shouldHightLightText(transcript: Transcript): boolean {
   if (transcript && transcript.segs) {
     const startTime = transcript.tStartMs / 1000;
@@ -195,7 +202,6 @@ async function getYoutubeVideoDetail(videoId: string): Promise<void> {
   } else {
     isTranscriptConsistent.value = true;
   }
-  enTranscriptData.value = enData;
   zhTranscriptData.value = zhData;
 }
 
@@ -232,6 +238,12 @@ function initializeVideo(videoId: string): void {
 
 async function getArticleTokenDetail(youtubeVideoId: string) {
   const at = await httpRequest.post('/articletoken/detail', { youtubeVideoId });
+  return at;
+}
+
+async function generateTranscriptData(youtubeVideoId: string) {
+  const t = await getArticleTokenDetail(youtubeVideoId);
+  enTranscriptData.value = new Map(Object.entries(t.data.data.tokens));
 }
 
 onMounted(async () => {
@@ -241,7 +253,7 @@ onMounted(async () => {
     initializeVideo(youtubeId.value);
   }, 800);
   iframeSrc.value = `${preFixUrl}/${youtubeId.value}`;
-
+  generateTranscriptData(youtubeId.value);
   await getYoutubeVideoDetail(youtubeId.value);
 });
 </script>
