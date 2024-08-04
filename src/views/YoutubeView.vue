@@ -67,6 +67,9 @@
           :class="[shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500']"
         >
           <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
+          <div>
+            {{ zhTranscriptData[getEnTranscriptIndex(_)].segs.map((seg) => seg.utf8).join('') }}
+          </div>
         </div>
       </div>
     </template>
@@ -136,6 +139,15 @@ const currentZhTranscriptText = computed(() => {
     return '';
   }
 });
+
+function getEnTranscriptIndex(k: string): number {
+  if (enTranscriptData.value !== null) {
+    const keys = Array.from(enTranscriptData.value?.keys());
+    return keys.indexOf(k);
+  }
+  return 0;
+}
+
 function scrollElement() {
   const element = document.querySelector('.highlight');
   if (element) {
