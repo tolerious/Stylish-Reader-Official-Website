@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: '/center',
       name: 'personalCenter',
-      component: () => import('@/views/PersonalCenter.vue')
+      component: () => import('@/views/PersonalCenterView.vue')
     },
     {
       path: '/youtube/:youtubeId',

@@ -61,8 +61,12 @@ function goToPersonalCenter() {
 function logout() {
   localStorage.removeItem('token');
   isLogin.value = false;
-  location.reload();
+  router.push('/');
 }
 
-onMounted(() => {});
+onMounted(() => {
+  if (localStorage.getItem('token') !== null) {
+    isLogin.value = true;
+  }
+});
 </script>
