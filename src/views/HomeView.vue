@@ -13,6 +13,7 @@
               interesting features from us.
             </p>
             <button
+              @click="router.push('/center')"
               class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-36 hover:animate-none"
             >
               Get Started
@@ -58,20 +59,37 @@
           </div>
         </div>
       </div>
-      <div id="pricing"></div>
+      <!-- <div id="pricing" class="flex flex-col">
+        <div class="text-center">
+          <h3 class="text-2xl text-gray-900 font-medium leading-relaxed">Choose Your Plan</h3>
+          <p class="text-gray-600">Let's choose the package that is best for you and explore it</p>
+          <p class="text-gray-600">happily and cheerfully.</p>
+        </div>
+        <div class="grid grid-rows-1 grid-cols-3 gap-4">
+          <div class="bg-slate-100 py-4 px-8">
+            <div>
+              <img class="m-auto" src="@/assets/images/plans.webp" alt="" srcset="" />
+            </div>
+            <div class="mt-3">
+              <h3 class="text-gray-900 text-2xl font-bold text-center">Free</h3>
+            </div>
+          </div>
+          <div class="bg-slate-100">2</div>
+          <div class="bg-slate-100">3</div>
+        </div>
+      </div> -->
       <div id="testimonial"></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { pingPong } from '@/constants';
+import articleIcon from '@/assets/images/article.svg';
+import userIcon from '@/assets/images/user.svg';
+import wordIcon from '@/assets/images/word.svg';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { httpRequest } from '../utils/requestUtils';
-import userIcon from '@/assets/images/user.svg';
-import articleIcon from '@/assets/images/article.svg';
-import wordIcon from '@/assets/images/word.svg';
+
 const router = useRouter();
 
 const bannerData = [
@@ -92,15 +110,5 @@ const bannerData = [
   }
 ];
 
-function generateIcon(iconName: string) {
-  return `@/assets/images/${iconName}.svg`;
-}
-
-onMounted(() => {
-  httpRequest.get(pingPong).then((res) => {
-    if (res.data.code !== 200) {
-      router.push('/login');
-    }
-  });
-});
+onMounted(() => {});
 </script>

@@ -1,7 +1,13 @@
 <template>
-  <header class="h-16 fixed w-full bg-white shadow-sm shadow-slate-200" v-if="isHeaderFooterVisible">
+  <header
+    class="h-16 fixed w-full bg-white shadow-sm shadow-slate-200"
+    v-if="isHeaderFooterVisible"
+  >
     <div class="max-w-screen-xl px-5 py-3 m-auto grid top-0 grid-rows-1 grid-cols-4 h-full">
-      <div class="flex flex-row justify-start items-center">
+      <div
+        @click="router.push('/')"
+        class="cursor-pointer flex flex-row justify-start items-center"
+      >
         <img src="@/assets/images/logo.svg" alt="" srcset="" />
       </div>
       <div class="col-span-2">
@@ -16,6 +22,7 @@
       </div>
       <div class="bg--300 flex justify-end items-center">
         <button
+          @click="handleClick"
           class="px-4 py-1 border-pink-600 border-2 rounded-md text-pink-600 active:shadow-sm active:shadow-slate-400"
         >
           Try for free!
@@ -26,7 +33,15 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+
 defineProps({
   isHeaderFooterVisible: Boolean
 });
+
+const router = useRouter();
+
+function handleClick() {
+  router.push('/center');
+}
 </script>
