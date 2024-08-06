@@ -23,3 +23,16 @@ export enum PlayerState {
   Buffering = 3,
   Inserted = 5
 }
+
+export interface Seg {
+  _id: string;
+  isHightLight: boolean;
+  text: string;
+  uuid: string;
+}
+
+export interface ArticleToken {
+  originTextString: string;
+  _id: string;
+  segs: Seg[];
+}
