@@ -6,12 +6,14 @@
         <div class="w-2/4">
           <div class="h-full flex flex-col justify-around text-gray-900">
             <h1 class="text-3xl font-medium">
-              Want anything to be easy with <strong>Stylish Reader</strong>
+              免费使用<strong>Stylish Reader</strong>更加快速，高效的学习，掌握英语技能。
             </h1>
             <p>
-              Provide a network for all your needs with ease and fun using LaslesVPN discover
-              interesting features from us.
+              提供功能齐全的英语学习工具，包括
+              <strong>浏览器插件</strong
+              >，<strong>APP</strong>，<strong>网站</strong>，彻底摈弃死记硬背的学习模式，通过不断在语境中反复锤炼，让你的英语技能步步高升。
             </p>
+            <p>学习英语的唯一捷径就是：不断重复，不断打磨，不断进步！</p>
             <button
               @click="router.push('/center')"
               class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-36 hover:animate-none"
@@ -44,40 +46,103 @@
         <div class="flex justify-end">
           <div class="w-[70%]">
             <h3 class="text-3xl font-medium text-gray-900 leading-relaxed">
-              We Provide Many Features You Can Use
+              Stylish Reader 提供这些功能
             </h3>
             <p class="my-3">
-              You can explore the features that we provide with fun and have their own functions
-              each feature.
+              通过熟练运用这些工具中具备的功能，你的英语能力会节节攀升，乃至超出你的想象。
             </p>
-            <ul class="self-start list-inside">
-              <li>1. Powerfull online protection.</li>
-              <li>2. Powerfull online protection.</li>
-              <li>3. Powerfull online protection.</li>
-              <li>4. Powerfull online protection.</li>
+            <ul class="self-start list-inside flex flex-col gap-1">
+              <li>1. 提供划词翻译并收藏单词的浏览器插件。</li>
+              <li>2. 收藏Youtube视频到个人中心，同时查看中英双语字幕</li>
+              <li>3. 支持对字幕内容进行高亮批注及实时备注。</li>
+              <li>4. 支持对每篇收藏的文章进行学习心得总结。</li>
+              <li>5. 支持收藏的单词及短语在APP端进行复习。</li>
+              <li>6. 支持视频中英双语字幕导出为文件。</li>
             </ul>
           </div>
         </div>
       </div>
-      <!-- <div id="pricing" class="flex flex-col">
+      <div id="pricing" class="flex flex-col">
         <div class="text-center">
-          <h3 class="text-2xl text-gray-900 font-medium leading-relaxed">Choose Your Plan</h3>
-          <p class="text-gray-600">Let's choose the package that is best for you and explore it</p>
-          <p class="text-gray-600">happily and cheerfully.</p>
+          <h3 class="text-2xl text-gray-900 font-medium leading-relaxed">支持与鼓励</h3>
+          <p class="text-gray-600">
+            Stylish
+            Reader的宗旨是帮助更多热爱学习英语的人提供一个学习利器，但由于服务器，数据库的运营都需要十分巨大的经费支撑，故提供了一些增值服务，希望大家多多支持。
+          </p>
+          <p>🙏🙏🙏</p>
+
+          <button
+            class="my-8 py-2 px-5 border-pink-600 bg-pink-600 text-white cursor-pointer rounded-sm border-2 active:shadow-sm active:shadow-pink-800"
+          >
+            为服务器加电5毛钱⚡
+          </button>
         </div>
         <div class="grid grid-rows-1 grid-cols-3 gap-4">
-          <div class="bg-slate-100 py-4 px-8">
+          <div
+            class="rounded-md border-2 border-slate-100 py-10 px-8 flex flex-col justify-start items-center"
+          >
             <div>
               <img class="m-auto" src="@/assets/images/plans.webp" alt="" srcset="" />
             </div>
             <div class="mt-3">
-              <h3 class="text-gray-900 text-2xl font-bold text-center">Free</h3>
+              <h3 class="text-gray-900 text-2xl font-bold text-center">免费版</h3>
             </div>
+            <div>
+              <ul class="text-left mt-8 flex flex-col gap-5">
+                <li class="before:content-['✔️'] before:mr-1">免费使用网站内容</li>
+                <li class="before:content-['✔️'] before:mr-1">免费使用划词翻译</li>
+                <li class="before:content-['✔️'] before:mr-1">免费使用单词收藏功能</li>
+                <li class="before:content-['✔️'] before:mr-1">免费使用内容批注功能</li>
+                <li class="before:content-['✔️'] before:mr-1">免费使用APP复习功能</li>
+                <li class="before:content-['✔️'] before:mr-1">免费使用Youtube收藏插件</li>
+                <li class="before:content-['✔️'] before:mr-1">中英双语字幕学习收藏视频</li>
+              </ul>
+            </div>
+            <button class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8">0元开启</button>
           </div>
-          <div class="bg-slate-100">2</div>
-          <div class="bg-slate-100">3</div>
+          <div
+            class="rounded-md border-2 border-slate-100 py-10 px-8 flex flex-col justify-start items-center"
+          >
+            <div>
+              <img class="m-auto" src="@/assets/images/plans.webp" alt="" srcset="" />
+            </div>
+            <div class="mt-3">
+              <h3 class="text-gray-900 text-2xl font-bold text-center">高级版</h3>
+            </div>
+            <div>
+              <ul class="text-left mt-8 flex flex-col gap-5">
+                <li class="before:content-['✔️'] before:mr-1">免费版所有功能</li>
+                <li class="before:content-['⭐'] before:mr-1">科学上网教学</li>
+                <li class="before:content-['⭐'] before:mr-1">学习资料推荐</li>
+                <li class="before:content-['⭐'] before:mr-1">考研英语备考推荐</li>
+                <li class="before:content-['⭐'] before:mr-1">私人定制学习计划</li>
+                <li class="before:content-['⭐'] before:mr-1">托福、雅思备考推荐</li>
+                <li class="before:content-['⭐'] before:mr-1">导出双语字幕pdf文件</li>
+              </ul>
+            </div>
+            <button class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8">66元开启</button>
+          </div>
+          <div
+            class="rounded-md border-2 border-slate-100 py-10 px-8 flex flex-col justify-start items-center"
+          >
+            <div>
+              <img class="m-auto" src="@/assets/images/plans.webp" alt="" srcset="" />
+            </div>
+            <div class="mt-3">
+              <h3 class="text-gray-900 text-2xl font-bold text-center">终身VIP</h3>
+            </div>
+            <div>
+              <ul class="text-left mt-8 flex flex-col gap-5">
+                <li class="before:content-['✔️'] before:mr-1">高级版所有功能</li>
+                <li class="before:content-['⭐⭐'] before:mr-1">定制软件需求</li>
+                <li class="before:content-['⭐⭐'] before:mr-1">新功能预先体验</li>
+                <li class="before:content-['⭐⭐'] before:mr-1">7x12小时在线支持</li>
+              </ul>
+            </div>
+            <button class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8">599元开启</button>
+          </div>
         </div>
-      </div> -->
+      </div>
       <div id="testimonial"></div>
     </div>
   </div>
@@ -95,17 +160,17 @@ const router = useRouter();
 const bannerData = [
   {
     topText: '500+',
-    bottomText: 'Users',
+    bottomText: '用户学习',
     iconName: userIcon
   },
   {
     topText: '4000+',
-    bottomText: 'Articles&Videos',
+    bottomText: '视频和文章',
     iconName: articleIcon
   },
   {
     topText: '20000+',
-    bottomText: 'Words',
+    bottomText: '单词收藏',
     iconName: wordIcon
   }
 ];
