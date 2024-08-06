@@ -18,7 +18,7 @@
               @click="router.push('/center')"
               class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-36 hover:animate-none"
             >
-              Get Started
+              即刻开始
             </button>
           </div>
         </div>
@@ -88,9 +88,9 @@
               <h3 class="text-gray-900 text-2xl font-bold text-center">免费版</h3>
             </div>
             <div>
-              <ul class="text-left mt-8 flex flex-col gap-5">
-                <li class="before:content-['✔️'] before:mr-1">免费使用网站内容</li>
-                <li class="before:content-['✔️'] before:mr-1">免费使用划词翻译</li>
+              <ul class="text-left mt-8 flex flex-col gap-5 h-[300px]">
+                <li class="before:content-['✔️'] before:mr-1">免费使用网站所有内容</li>
+                <li class="before:content-['✔️'] before:mr-1">免费使用划词翻译插件</li>
                 <li class="before:content-['✔️'] before:mr-1">免费使用单词收藏功能</li>
                 <li class="before:content-['✔️'] before:mr-1">免费使用内容批注功能</li>
                 <li class="before:content-['✔️'] before:mr-1">免费使用APP复习功能</li>
@@ -110,7 +110,7 @@
               <h3 class="text-gray-900 text-2xl font-bold text-center">高级版</h3>
             </div>
             <div>
-              <ul class="text-left mt-8 flex flex-col gap-5">
+              <ul class="text-left mt-8 flex flex-col gap-5 h-[300px]">
                 <li class="before:content-['✔️'] before:mr-1">免费版所有功能</li>
                 <li class="before:content-['⭐'] before:mr-1">科学上网教学</li>
                 <li class="before:content-['⭐'] before:mr-1">学习资料推荐</li>
@@ -132,7 +132,7 @@
               <h3 class="text-gray-900 text-2xl font-bold text-center">终身VIP</h3>
             </div>
             <div>
-              <ul class="text-left mt-8 flex flex-col gap-5">
+              <ul class="text-left mt-8 flex flex-col gap-5 h-[300px]">
                 <li class="before:content-['✔️'] before:mr-1">高级版所有功能</li>
                 <li class="before:content-['⭐⭐'] before:mr-1">定制软件需求</li>
                 <li class="before:content-['⭐⭐'] before:mr-1">新功能预先体验</li>

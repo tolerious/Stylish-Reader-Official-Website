@@ -12,9 +12,9 @@
       </div>
       <div class="col-span-2">
         <ul class="flex justify-center flex-row h-full items-center text-gray-950">
-          <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#about">About</a></li>
-          <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#feature">Feature</a></li>
-          <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#pricing">Pricing</a></li>
+          <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#about">简介</a></li>
+          <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#feature">功能</a></li>
+          <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#pricing">支持与鼓励</a></li>
           <li class="px-6 cursor-pointer hover:text-pink-600">
             <a href="#testimonial">Testimonial</a>
           </li>
@@ -26,14 +26,14 @@
           @click="logout"
           class="px-4 py-1 border-pink-600 border-2 rounded-md text-pink-600 active:shadow-sm active:shadow-slate-400"
         >
-          Logout
+          退出登录
         </button>
         <button
           v-else
           @click="goToPersonalCenter"
           class="px-4 py-1 border-pink-600 border-2 rounded-md text-pink-600 active:shadow-sm active:shadow-slate-400"
         >
-          Try for free!
+          免费使用
         </button>
       </div>
     </div>
