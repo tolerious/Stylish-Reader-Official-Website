@@ -22,7 +22,15 @@
       </div>
       <div class="bg--300 flex justify-end items-center">
         <button
-          @click="handleClick"
+          v-if="isLogin"
+          @click="logout"
+          class="px-4 py-1 border-pink-600 border-2 rounded-md text-pink-600 active:shadow-sm active:shadow-slate-400"
+        >
+          Logout
+        </button>
+        <button
+          v-else
+          @click="goToPersonalCenter"
           class="px-4 py-1 border-pink-600 border-2 rounded-md text-pink-600 active:shadow-sm active:shadow-slate-400"
         >
           Try for free!
@@ -33,6 +41,9 @@
 </template>
 
 <script setup lang="ts">
+import { useStylishStore } from '@/stores/stylish';
+import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 defineProps({
@@ -41,7 +52,17 @@ defineProps({
 
 const router = useRouter();
 
-function handleClick() {
+const { isLogin } = storeToRefs(useStylishStore());
+
+function goToPersonalCenter() {
   router.push('/center');
 }
+
+function logout() {
+  localStorage.removeItem('token');
+  isLogin.value = false;
+  location.reload();
+}
+
+onMounted(() => {});
 </script>

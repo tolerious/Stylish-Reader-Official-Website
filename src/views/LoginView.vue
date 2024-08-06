@@ -8,7 +8,7 @@
         alt="Your Company"
       />
       <h2
-        v-if="isLogin"
+        v-if="!isRegister"
         class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
       >
         Sign in to <span class="text-pink-600">Stylish Reader</span>
@@ -70,13 +70,13 @@
             @click="handleSubmit"
             class="flex w-full justify-center rounded-md bg-pink-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600"
           >
-            <span v-if="isLogin">Sign in</span>
+            <span v-if="!isRegister">Sign in</span>
             <span v-else>Register</span>
           </button>
         </div>
       </form>
 
-      <p v-if="isLogin" class="mt-10 text-center text-sm text-gray-500">
+      <p v-if="!isRegister" class="mt-10 text-center text-sm text-gray-500">
         Not a member?
         {{ ' ' }}
         <a
@@ -105,13 +105,16 @@
 
 <script setup lang="ts">
 import { loginUrl, registerUrl } from '@/constants';
+import { useStylishStore } from '@/stores/stylish';
+import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
 const username = ref('');
 const password = ref('');
 const router = useRouter();
-const isLogin = ref(true);
+const isRegister = ref(false);
+const { isLogin } = storeToRefs(useStylishStore());
 
 async function login() {
   const r = await httpRequest.post(loginUrl, {
@@ -120,8 +123,10 @@ async function login() {
   });
   if (r.data.code === 200) {
     localStorage.setItem('token', r.data.data.token);
+    isLogin.value = true;
     router.push('/');
   } else {
+    isLogin.value = false;
     alert(r.data.msg);
   }
 }
@@ -134,8 +139,8 @@ async function register() {
     source: 'stylish-web'
   });
   if (r.data.code === 200) {
-    alert('Register Success.');
     isLogin.value = true;
+    alert('Register Success.');
   } else {
     alert(r.data.msg);
   }
@@ -143,11 +148,11 @@ async function register() {
 
 async function handleSubmit(event: any) {
   event.preventDefault();
-  isLogin.value ? await login() : await register();
+  isRegister.value ? await register() : await login();
 }
 
 function switchCondition() {
-  isLogin.value = !isLogin.value;
+  isRegister.value = !isRegister.value;
 }
 
 onMounted(() => {
