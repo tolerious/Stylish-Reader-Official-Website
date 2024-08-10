@@ -68,7 +68,7 @@
         <div
           v-for="[_, enData] in enTranscriptData"
           :key="_"
-          class="mb-3"
+          class="mb-3 text-wrap"
           :class="[shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500']"
         >
           <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
