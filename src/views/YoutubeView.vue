@@ -22,7 +22,7 @@
           <!-- 英文显示区域 -->
           <div class="overflow-y-scroll border-b-gray-800 border-b-[0.5px]">
             <div
-              class="max-h-full row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-base p-2"
+              class="max-h-full row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-xl p-2"
               v-if="playerIsReady"
               style="height: 100%; max-height: 100%"
             >
@@ -41,7 +41,7 @@
           <!-- 中文显示区域 -->
           <div class="overflow-y-scroll">
             <div
-              class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-sm p-2"
+              class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-xl p-2"
               v-if="playerIsReady"
             >
               <div v-for="zhData in zhTranscriptData" :key="zhData.tStartMs" class="mb-3">
@@ -63,7 +63,7 @@
     <!-- 中英文翻译一致 -->
     <template v-else>
       <div
-        class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-lg p-2 overflow-y-scroll"
+        class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-xl p-2 overflow-y-scroll"
         v-if="playerIsReady"
       >
         <div
@@ -103,7 +103,11 @@
         </div>
         <div class="flex justify-center items-center">
           <img
-            v-if="[PlayerState.NotStarted, PlayerState.Paused].includes(currentPlayerState)"
+            v-if="
+              [PlayerState.NotStarted, PlayerState.Paused, PlayerState.Ended].includes(
+                currentPlayerState
+              )
+            "
             @click="playPauseVideo"
             src="@/assets/images/play.svg"
             title="开始"
@@ -333,7 +337,7 @@ function initializeVideo(videoId: string): void {
       width: '99%',
       border: 'none',
       videoId,
-      playerVars: { controls: 0, modestbranding: 0, iv_load_policy: 3 },
+      playerVars: { controls: 1, modestbranding: 0, iv_load_policy: 3 },
       events: {
         onReady: onPlayerReady,
         onStateChange: onPlayerStateChange
