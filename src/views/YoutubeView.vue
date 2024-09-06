@@ -365,7 +365,6 @@ onMounted(async () => {
     initializeVideo(youtubeId.value);
   }, 800);
   iframeSrc.value = `${preFixUrl}/${youtubeId.value}`;
-  console.log(iframeSrc.value);
   generateTranscriptData(youtubeId.value);
   await getYoutubeVideoDetail(youtubeId.value);
 });
