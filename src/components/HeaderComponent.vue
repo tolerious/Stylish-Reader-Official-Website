@@ -51,7 +51,7 @@ defineProps({
 
 const router = useRouter();
 
-const { setLoginState } = useStylishStore();
+const { setLoginState, isLogin } = useStylishStore();
 
 function goToPersonalCenter() {
   router.push('/center');
