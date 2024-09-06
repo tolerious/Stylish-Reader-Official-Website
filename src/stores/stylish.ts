@@ -14,5 +14,9 @@ export const useStylishStore = defineStore('stylish', () => {
     }
   });
 
-  return { count, isLogin };
+  function setLoginState(flag: boolean): void {
+    _isLogin.value = flag;
+  }
+
+  return { count, isLogin, setLoginState };
 });

@@ -42,7 +42,6 @@
 
 <script setup lang="ts">
 import { useStylishStore } from '@/stores/stylish';
-import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -52,7 +51,7 @@ defineProps({
 
 const router = useRouter();
 
-const { isLogin } = storeToRefs(useStylishStore());
+const { setLoginState } = useStylishStore();
 
 function goToPersonalCenter() {
   router.push('/center');
@@ -60,13 +59,13 @@ function goToPersonalCenter() {
 
 function logout() {
   localStorage.removeItem('token');
-  isLogin.value = false;
+  setLoginState(false);
   router.push('/');
 }
 
 onMounted(() => {
   if (localStorage.getItem('token') !== null) {
-    isLogin.value = true;
+    setLoginState(true);
   }
 });
 </script>
