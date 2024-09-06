@@ -106,7 +106,6 @@
 <script setup lang="ts">
 import { loginUrl, registerUrl } from '@/constants';
 import { useStylishStore } from '@/stores/stylish';
-import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
@@ -114,7 +113,7 @@ const username = ref('');
 const password = ref('');
 const router = useRouter();
 const isRegister = ref(false);
-const { isLogin } = storeToRefs(useStylishStore());
+const { setLoginState } = useStylishStore();
 
 async function login() {
   const r = await httpRequest.post(loginUrl, {
@@ -123,10 +122,10 @@ async function login() {
   });
   if (r.data.code === 200) {
     localStorage.setItem('token', r.data.data.token);
-    isLogin.value = true;
+    setLoginState(true);
     router.push('/');
   } else {
-    isLogin.value = false;
+    setLoginState(false);
     alert(r.data.msg);
   }
 }
@@ -139,7 +138,7 @@ async function register() {
     source: 'stylish-web'
   });
   if (r.data.code === 200) {
-    isLogin.value = true;
+    setLoginState(true);
     alert('Register Success.');
   } else {
     alert(r.data.msg);

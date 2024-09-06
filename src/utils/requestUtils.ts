@@ -6,8 +6,9 @@ import axios, {
   type AxiosRequestConfig,
   type AxiosResponse
 } from 'axios';
+
 const instance: AxiosInstance = axios.create({
-  baseURL: '/api', // 替换为你的API基础URL
+  baseURL: import.meta.env.VITE_BACKEND_URL, // 替换为你的API基础URL
   timeout: 5000,
   headers: { 'Content-Type': 'application/json' }
 });
