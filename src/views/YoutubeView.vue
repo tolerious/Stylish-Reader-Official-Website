@@ -358,6 +358,15 @@ async function generateTranscriptData(youtubeVideoId: string) {
   enTranscriptData.value = new Map(Object.entries(t.data.data.tokens));
 }
 
+function sendMessageToStylishReaderGeneralUtils(message: any) {
+  const event = new CustomEvent('officialWebsiteYouTubeVideoPageReady', {
+    detail: JSON.stringify(message),
+    bubbles: true,
+    composed: true
+  });
+  document.dispatchEvent(event);
+}
+
 onMounted(async () => {
   youtubeId.value = route.params.youtubeId as string;
   createScriptTag();
@@ -365,7 +374,9 @@ onMounted(async () => {
     initializeVideo(youtubeId.value);
   }, 800);
   iframeSrc.value = `${preFixUrl}/${youtubeId.value}`;
-  generateTranscriptData(youtubeId.value);
+  await generateTranscriptData(youtubeId.value);
   await getYoutubeVideoDetail(youtubeId.value);
+  // 在这里通知 stylish reader 插件内容已经准备好了，重新进行 dom 遍历
+  sendMessageToStylishReaderGeneralUtils({ type: 'official-website-youtube-video-ready' });
 });
 </script>
