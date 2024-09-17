@@ -84,8 +84,8 @@
       <div class="h-full w-1/2 m-auto grid grid-rows-1 grid-cols-5">
         <div class="flex justify-center items-center">
           <img
-            src="@/assets/images/export-en.svg"
-            title="导出英文文稿"
+            src="@/assets/images/export-zh.svg"
+            title="导出中英双语文稿"
             class="h-6 cursor-pointer"
             alt=""
             srcset=""
@@ -137,8 +137,9 @@
         </div>
         <div class="flex justify-center items-center">
           <img
-            src="@/assets/images/export-zh.svg"
-            title="导出中英双语文稿"
+            @click="generatePdfHandler"
+            src="@/assets/images/export-en.svg"
+            title="导出英文文稿"
             class="h-6 cursor-pointer"
             alt=""
             srcset=""
@@ -154,6 +155,7 @@ import { PlayerState, type ArticleToken, type Segment, type Transcript } from '@
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
+import jsPDF from 'jspdf';
 
 const preFixUrl = 'https://www.youtube.com/embed';
 const iframeSrc = ref('');
@@ -210,6 +212,35 @@ const currentZhTranscriptText = computed(() => {
     return '';
   }
 });
+
+function generatePdfHandler() {
+  const doc = new jsPDF({
+    unit: 'px',
+    hotfixes: ['px_scaling']
+  });
+  const pageHeight = doc.internal.pageSize.height;
+
+  const fontSize = 14;
+  const xStart = 30;
+  const yStart = 20;
+  let totalOffset = 0;
+  let pageCount = 1;
+  doc.setFontSize(fontSize);
+  doc.setFont('Menlo');
+  if (!enTranscriptData.value) {
+    return;
+  }
+  [...enTranscriptData.value].forEach((element, index) => {
+    totalOffset = (index + 1) * yStart;
+    doc.text(element[1].originTextString, xStart, yStart);
+    if (totalOffset >= pageCount * pageHeight - yStart) {
+      // totalOffset = 0;
+      doc.addPage();
+      pageCount += 1;
+    }
+  });
+  doc.save();
+}
 
 function playPauseVideo(): void {
   if (
