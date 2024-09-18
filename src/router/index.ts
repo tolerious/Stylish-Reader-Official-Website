@@ -23,7 +23,8 @@ const router = createRouter({
       name: 'loading',
       component: () => import('@/views/LoadingView.vue')
     },
-    { path: '/login', name: 'login', component: () => import('@/views/LoginView.vue') }
+    { path: '/login', name: 'login', component: () => import('@/views/LoginView.vue') },
+    { path: '/pdf/:youtubeId', name: 'export-pdf', component: () => import('@/views/ExportPdf.vue') }
   ]
 });
 

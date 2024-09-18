@@ -17,6 +17,7 @@ import VideoListItem from '@/components/VideoListItem.vue';
 import { articleToken, youtubeVideos } from '@/constants';
 import type { Video } from '@/types';
 import { httpRequest } from '@/utils/requestUtils';
+import jsPDF from 'jspdf';
 import { onMounted, ref, type Ref } from 'vue';
 
 const videos: Ref<Video[]> = ref([]);

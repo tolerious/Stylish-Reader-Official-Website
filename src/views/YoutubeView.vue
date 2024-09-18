@@ -84,8 +84,8 @@
       <div class="h-full w-1/2 m-auto grid grid-rows-1 grid-cols-5">
         <div class="flex justify-center items-center">
           <img
-            src="@/assets/images/export-en.svg"
-            title="导出英文文稿"
+            src="@/assets/images/export-zh.svg"
+            title="导出中英双语文稿"
             class="h-6 cursor-pointer"
             alt=""
             srcset=""
@@ -137,8 +137,9 @@
         </div>
         <div class="flex justify-center items-center">
           <img
-            src="@/assets/images/export-zh.svg"
-            title="导出中英双语文稿"
+            @click="generatePdfHandler"
+            src="@/assets/images/export-en.svg"
+            title="导出英文文稿"
             class="h-6 cursor-pointer"
             alt=""
             srcset=""
@@ -152,12 +153,14 @@
 <script setup lang="ts">
 import { PlayerState, type ArticleToken, type Segment, type Transcript } from '@/types';
 import { computed, onMounted, ref, type Ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
+import jsPDF from 'jspdf';
 
 const preFixUrl = 'https://www.youtube.com/embed';
 const iframeSrc = ref('');
 const route = useRoute();
+const router = useRouter();
 const youtubeId = ref('');
 const playerIsReady = ref(false);
 const enTranscriptData: Ref<Map<string, ArticleToken> | null> = ref(null);
@@ -210,6 +213,10 @@ const currentZhTranscriptText = computed(() => {
     return '';
   }
 });
+
+function generatePdfHandler() {
+  router.push(`/pdf/${youtubeId.value}`);
+}
 
 function playPauseVideo(): void {
   if (
