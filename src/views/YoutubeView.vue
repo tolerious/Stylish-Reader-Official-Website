@@ -39,7 +39,7 @@
             </div>
           </div>
           <!-- 中文显示区域 -->
-          <div class="overflow-y-scroll">
+          <div class="overflow-y-scroll" v-if="isChineseTranscriptVisible">
             <div
               class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-xl p-2"
               v-if="playerIsReady"
@@ -73,7 +73,7 @@
           :class="[shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500']"
         >
           <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
-          <div>
+          <div v-if="isChineseTranscriptVisible">
             {{ zhTranscriptData[getEnTranscriptIndex(_)].segs.map((seg) => seg.utf8).join('') }}
           </div>
         </div>
@@ -84,8 +84,9 @@
       <div class="h-full w-1/2 m-auto grid grid-rows-1 grid-cols-5">
         <div class="flex justify-center items-center">
           <img
+            @click="switchChineseTranscriptHandler"
             src="@/assets/images/export-zh.svg"
-            title="导出中英双语文稿"
+            title="开启/关闭中文字幕"
             class="h-6 cursor-pointer"
             alt=""
             srcset=""
@@ -169,6 +170,7 @@ const player: Ref<YT.Player | null> = ref(null);
 const isTranscriptConsistent = ref(false);
 const currentTime = ref(0);
 const currentPlayerState = ref(PlayerState.NotStarted);
+const isChineseTranscriptVisible = ref(false);
 
 const currentEnTranscriptText = computed(() => {
   if (enTranscriptData.value !== null) {
@@ -213,6 +215,10 @@ const currentZhTranscriptText = computed(() => {
     return '';
   }
 });
+
+function switchChineseTranscriptHandler() {
+  isChineseTranscriptVisible.value = !isChineseTranscriptVisible.value;
+}
 
 function generatePdfHandler() {
   router.push(`/pdf/${youtubeId.value}`);
