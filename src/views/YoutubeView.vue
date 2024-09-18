@@ -153,13 +153,14 @@
 <script setup lang="ts">
 import { PlayerState, type ArticleToken, type Segment, type Transcript } from '@/types';
 import { computed, onMounted, ref, type Ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
 import jsPDF from 'jspdf';
 
 const preFixUrl = 'https://www.youtube.com/embed';
 const iframeSrc = ref('');
 const route = useRoute();
+const router = useRouter();
 const youtubeId = ref('');
 const playerIsReady = ref(false);
 const enTranscriptData: Ref<Map<string, ArticleToken> | null> = ref(null);
@@ -214,32 +215,7 @@ const currentZhTranscriptText = computed(() => {
 });
 
 function generatePdfHandler() {
-  const doc = new jsPDF({
-    unit: 'px',
-    hotfixes: ['px_scaling']
-  });
-  const pageHeight = doc.internal.pageSize.height;
-
-  const fontSize = 14;
-  const xStart = 30;
-  const yStart = 20;
-  let totalOffset = 0;
-  let pageCount = 1;
-  doc.setFontSize(fontSize);
-  doc.setFont('Menlo');
-  if (!enTranscriptData.value) {
-    return;
-  }
-  [...enTranscriptData.value].forEach((element, index) => {
-    totalOffset = (index + 1) * yStart;
-    doc.text(element[1].originTextString, xStart, yStart);
-    if (totalOffset >= pageCount * pageHeight - yStart) {
-      // totalOffset = 0;
-      doc.addPage();
-      pageCount += 1;
-    }
-  });
-  doc.save();
+  router.push(`/pdf/${youtubeId.value}`);
 }
 
 function playPauseVideo(): void {
