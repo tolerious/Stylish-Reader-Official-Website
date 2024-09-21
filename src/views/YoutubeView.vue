@@ -227,7 +227,9 @@ function generatePdfHandler() {
 function playPauseVideo(): void {
   if (
     player.value &&
-    [PlayerState.Paused, PlayerState.NotStarted].includes(currentPlayerState.value)
+    [PlayerState.Paused, PlayerState.NotStarted, PlayerState.Ended].includes(
+      currentPlayerState.value
+    )
   ) {
     player.value.playVideo();
   }
