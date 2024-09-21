@@ -167,10 +167,10 @@ const playerIsReady = ref(false);
 const enTranscriptData: Ref<Map<string, ArticleToken> | null> = ref(null);
 const zhTranscriptData: Ref<Transcript[]> = ref([]);
 const player: Ref<YT.Player | null> = ref(null);
-const isTranscriptConsistent = ref(true);
+const isTranscriptConsistent = ref(false);
 const currentTime = ref(0);
 const currentPlayerState = ref(PlayerState.NotStarted);
-const isChineseTranscriptVisible = ref(false);
+const isChineseTranscriptVisible = ref(true);
 
 const currentEnTranscriptText = computed(() => {
   if (enTranscriptData.value !== null) {
@@ -227,7 +227,9 @@ function generatePdfHandler() {
 function playPauseVideo(): void {
   if (
     player.value &&
-    [PlayerState.Paused, PlayerState.NotStarted].includes(currentPlayerState.value)
+    [PlayerState.Paused, PlayerState.NotStarted, PlayerState.Ended].includes(
+      currentPlayerState.value
+    )
   ) {
     player.value.playVideo();
   }
