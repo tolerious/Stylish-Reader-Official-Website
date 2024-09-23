@@ -18,7 +18,11 @@
     <!-- 中英文翻译不一致 -->
     <template v-if="!isTranscriptConsistent">
       <div class="row-span-1 col-span-1 overflow-y-hidden">
-        <div class="overflow-y-hidden grid grid-rows-[50%_50%] h-full" v-if="playerIsReady">
+        <div
+          class="overflow-y-hidden grid h-full"
+          :class="[isChineseTranscriptVisible ? 'grid-rows-[50%_50%]' : 'grid-rows-1']"
+          v-if="playerIsReady"
+        >
           <!-- 英文显示区域 -->
           <div class="overflow-y-scroll border-b-gray-800 border-b-[0.5px]">
             <div
