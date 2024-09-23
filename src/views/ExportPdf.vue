@@ -54,7 +54,13 @@ onMounted(async () => {
   youtubeId.value = route.params.youtubeId as string;
   await generateTranscriptData(youtubeId.value);
   generateContent();
+  const phraseFloatingIcon = document.getElementById(
+    'stylish-reader-phrase-floating-panel-shadow-root'
+  );
   setTimeout(() => {
+    if (phraseFloatingIcon) {
+      phraseFloatingIcon.style.display = 'none';
+    }
     window.print();
   }, 1000);
 });
