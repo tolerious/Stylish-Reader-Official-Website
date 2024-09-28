@@ -1,6 +1,6 @@
 <template>
   <header
-    class="h-16 fixed w-full bg-white shadow-sm shadow-slate-200"
+    class="h-[64px] fixed w-full bg-white shadow-sm shadow-slate-200"
     v-if="isHeaderFooterVisible"
   >
     <div class="max-w-screen-xl px-5 py-3 m-auto grid top-0 grid-rows-1 grid-cols-4 h-full">

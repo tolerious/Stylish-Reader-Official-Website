@@ -59,7 +59,9 @@
               <li>5. 支持收藏的单词及短语在APP端进行复习。</li>
             </ul>
             <div>
-              使用方法可参考<a class="underline text-pink-600" href="https://doc.stylishreader.com/">此处文档</a>。
+              使用方法可参考<a class="underline text-pink-600" href="https://doc.stylishreader.com/"
+                >此处文档</a
+              >。
             </div>
           </div>
         </div>
@@ -200,7 +202,7 @@
     </div>
   </div>
   <div
-    class="fixed text-center top-1/4 left-1/4 h-[50%] w-[50%] bg-slate-50"
+    class="fixed text-center top-1/4 left-1/4 h-[50%] w-[50%] bg-slate-50 border-slate-300 border-[1px] rounded-md"
     v-if="isSponsorDialogVisible"
   >
     <img class="h-[80%] mx-auto my-auto" src="@/assets/images/sponsor.jpg" alt="" srcset="" />
