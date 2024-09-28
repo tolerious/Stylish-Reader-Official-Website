@@ -5,17 +5,17 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Stylish Reader',
       component: () => import('@/views/HomeView.vue')
     },
     {
       path: '/center',
-      name: 'personalCenter',
+      name: '个人中心',
       component: () => import('@/views/PersonalCenterView.vue')
     },
     {
       path: '/youtuber/:youtubeId',
-      name: 'youtube',
+      name: 'YouTube 视频',
       component: () => import('@/views/YoutubeView.vue')
     },
     {
@@ -24,8 +24,20 @@ const router = createRouter({
       component: () => import('@/views/LoadingView.vue')
     },
     { path: '/login', name: 'login', component: () => import('@/views/LoginView.vue') },
-    { path: '/pdf/:youtubeId', name: 'export-pdf', component: () => import('@/views/ExportPdf.vue') }
+    {
+      path: '/pdf/:youtubeId',
+      name: '导出PDF',
+      component: () => import('@/views/ExportPdf.vue')
+    }
   ]
+});
+
+router.beforeEach((guard) => {
+  console.log(guard);
+  console.log(guard.name);
+  if (guard.name && typeof guard.name === 'string') {
+    document.title = guard.name;
+  }
 });
 
 export default router;
