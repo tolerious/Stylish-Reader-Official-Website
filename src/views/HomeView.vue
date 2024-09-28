@@ -72,6 +72,7 @@
           <p>🙏🙏🙏</p>
 
           <button
+            @click="sponsorMoney"
             class="my-8 py-2 px-5 border-pink-600 bg-pink-600 text-white cursor-pointer rounded-sm border-2 active:shadow-sm active:shadow-pink-800"
           >
             为服务器加电5毛钱⚡
@@ -98,7 +99,12 @@
                 <li class="before:content-['✔️'] before:mr-1">中英双语字幕学习收藏视频</li>
               </ul>
             </div>
-            <button class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8">0元开启</button>
+            <button
+              class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8"
+              @click="sponsorMoney"
+            >
+              0元开启
+            </button>
           </div>
           <div
             class="rounded-md border-2 border-slate-100 py-10 px-8 flex flex-col justify-start items-center"
@@ -120,7 +126,12 @@
                 <li class="before:content-['⭐'] before:mr-1">导出双语字幕pdf文件</li>
               </ul>
             </div>
-            <button class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8">66元开启</button>
+            <button
+              class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8"
+              @click="sponsorMoney"
+            >
+              66元开启
+            </button>
           </div>
           <div
             class="rounded-md border-2 border-slate-100 py-10 px-8 flex flex-col justify-start items-center"
@@ -139,12 +150,66 @@
                 <li class="before:content-['⭐⭐'] before:mr-1">7x12小时在线支持</li>
               </ul>
             </div>
-            <button class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8">599元开启</button>
+            <button
+              class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8"
+              @click="sponsorMoney"
+            >
+              599元开启
+            </button>
           </div>
         </div>
       </div>
-      <div id="testimonial"></div>
+      <div id="testimonial" class="mt-6">
+        <div class="bg-slate-50 py-2">
+          <div class="text-2xl text-center flex items-center justify-around">
+            <div class="w-60"></div>
+            <div class="w-60">联系我吧</div>
+            <div class="w-60"></div>
+          </div>
+          <div container class="flex items-center justify-around mt-10">
+            <div item class="flex flex-col items-center cursor-pointer w-60">
+              <div class="h-16 w-16 bg-slate-200 rounded-full flex items-center justify-center">
+                <img src="@/assets/images/wechat_icon.svg" alt="" srcset="" class="h-10" />
+              </div>
+              <div class="my-2">微信</div>
+              <div>tolyexpert</div>
+            </div>
+            <div item class="flex flex-col items-center cursor-pointer w-60">
+              <div class="h-16 w-16 bg-slate-200 rounded-full flex items-center justify-center">
+                <img src="@/assets/images/email_icon.svg" alt="" srcset="" class="h-10" />
+              </div>
+              <div class="my-2">邮箱</div>
+              <div>toly.feng@gmail.com</div>
+            </div>
+            <div item class="flex flex-col items-center cursor-pointer w-60">
+              <div class="h-16 w-16 bg-slate-200 rounded-full flex items-center justify-center">
+                <img src="@/assets/images/redbook_icon.svg" alt="" srcset="" class="h-10" />
+              </div>
+              <div class="my-2">小红书</div>
+              <div>
+                <a href="https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9"
+                  >不正经教英语的Toly</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div
+    class="fixed text-center top-1/4 left-1/4 h-[50%] w-[50%] bg-slate-50"
+    v-if="isSponsorDialogVisible"
+  >
+    <img class="h-[80%] mx-auto my-auto" src="@/assets/images/sponsor.jpg" alt="" srcset="" />
+    <div class="my-auto mt-4"></div>
+    <button
+      @click="hideSponsorDialog"
+      class="bg-pink-600 px-2 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-32 hover:animate-none"
+    >
+      关闭
+    </button>
+    <div class="text-slate-800"><span>付款时请备注</span></div>
   </div>
 </template>
 
@@ -152,7 +217,7 @@
 import articleIcon from '@/assets/images/article.svg';
 import userIcon from '@/assets/images/user.svg';
 import wordIcon from '@/assets/images/word.svg';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -175,5 +240,15 @@ const bannerData = [
   }
 ];
 
+const isSponsorDialogVisible = ref(false);
+
 onMounted(() => {});
+
+function hideSponsorDialog() {
+  isSponsorDialogVisible.value = false;
+}
+
+function sponsorMoney() {
+  isSponsorDialogVisible.value = true;
+}
 </script>
