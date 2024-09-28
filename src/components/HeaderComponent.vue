@@ -16,6 +16,9 @@
           <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#feature">功能</a></li>
           <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#pricing">支持与鼓励</a></li>
           <li class="px-6 cursor-pointer hover:text-pink-600">
+            <a href="#doc"><a href="https://doc.stylishreader.com">查看文档</a></a>
+          </li>
+          <li class="px-6 cursor-pointer hover:text-pink-600">
             <a href="#testimonial">联系我吧</a>
           </li>
         </ul>

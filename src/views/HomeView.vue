@@ -49,16 +49,18 @@
               Stylish Reader 提供这些功能
             </h3>
             <p class="my-3">
-              通过熟练运用这些工具中具备的功能，你的英语能力会节节攀升，乃至超出你的想象。
+              通过熟练运用工具中具备的功能，你的英语能力会不断提高，乃至超出你的想象。
             </p>
             <ul class="self-start list-inside flex flex-col gap-1">
               <li>1. 提供划词翻译并收藏单词的浏览器插件。</li>
-              <li>2. 收藏Youtube视频到个人中心，同时查看中英双语字幕</li>
-              <li>3. 支持对字幕内容进行高亮批注及实时备注。</li>
-              <li>4. 支持对每篇收藏的文章进行学习心得总结。</li>
+              <li>2. 收藏YouTube视频到个人中心，同时查看中英双语字幕。</li>
+              <li>3. 导出YouTube字幕为pdf格式，并查看收藏单词，短语的统计。</li>
+              <li>4. 支持收藏短语及句子。</li>
               <li>5. 支持收藏的单词及短语在APP端进行复习。</li>
-              <li>6. 支持视频中英双语字幕导出为文件。</li>
             </ul>
+            <div>
+              使用方法可参考<a class="underline text-pink-600" href="https://doc.stylishreader.com/">此处文档</a>。
+            </div>
           </div>
         </div>
       </div>
