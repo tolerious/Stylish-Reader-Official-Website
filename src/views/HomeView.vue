@@ -14,12 +14,26 @@
               >，<strong>APP</strong>，<strong>网站</strong>，彻底摈弃死记硬背的学习模式，通过不断在语境中反复锤炼，让你的英语技能步步高升。
             </p>
             <p>学习英语的唯一捷径就是：不断重复，不断打磨，不断进步！</p>
-            <button
-              @click="router.push('/center')"
-              class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-36 hover:animate-none"
-            >
-              即刻开始
-            </button>
+            <div class="flex gap-5">
+              <button
+                @click="router.push('/center')"
+                class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-36 hover:animate-none"
+              >
+                即刻开始
+              </button>
+              <button
+                @click="reciteWord"
+                class="border-pink-600 border-[1px] px-8 py-3 text-pink-600 rounded-md active:shadow-sm active:shadow-pink-800 w-40 hover:animate-none"
+              >
+                我要背单词
+              </button>
+              <button
+                @click="installExtension"
+                class="border-pink-600 border-[1px] px-8 py-3 text-pink-600 rounded-md active:shadow-sm active:shadow-pink-800 w-40 hover:animate-none"
+              >
+                浏览器插件
+              </button>
+            </div>
           </div>
         </div>
         <div class="w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
@@ -77,7 +91,7 @@
 
           <button
             @click="sponsorMoney"
-            class="my-8 py-2 px-5 border-pink-600 bg-pink-600 text-white cursor-pointer rounded-sm border-2 active:shadow-sm active:shadow-pink-800"
+            class="animate-bounce my-8 py-2 px-5 border-pink-600 bg-pink-600 text-white cursor-pointer rounded-sm border-2 active:shadow-sm active:shadow-pink-800"
           >
             为服务器加电5毛钱⚡
           </button>
@@ -247,6 +261,16 @@ const bannerData = [
 const isSponsorDialogVisible = ref(false);
 
 onMounted(() => {});
+
+function installExtension() {
+  window.open(
+    'https://addons.mozilla.org/zh-CN/firefox/addon/stylish-reader/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search'
+  );
+}
+
+function reciteWord() {
+  window.open('https://app.stylishreader.com');
+}
 
 function hideSponsorDialog() {
   isSponsorDialogVisible.value = false;
