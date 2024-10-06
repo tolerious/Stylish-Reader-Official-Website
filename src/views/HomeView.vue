@@ -11,7 +11,7 @@
             <p>
               提供功能齐全的英语学习工具，包括
               <strong>浏览器插件</strong
-              >，<strong>APP</strong>，<strong>网站</strong>，彻底摈弃死记硬背的学习模式，通过不断在语境中反复锤炼，让你的英语技能步步高升。
+              >，<strong>背单词APP</strong>，<strong>网站</strong>，通过不断在语境中反复锤炼，让你的英语技能步步高升。
             </p>
             <p>学习英语的唯一捷径就是：不断重复，不断打磨，不断进步！</p>
             <div class="flex gap-5">
@@ -199,7 +199,11 @@
               <div class="my-2">邮箱</div>
               <div>toly.feng@gmail.com</div>
             </div>
-            <div item class="flex flex-col items-center cursor-pointer w-60">
+            <div
+              item
+              class="flex flex-col items-center cursor-pointer w-60"
+              @click="redirectToRedBook"
+            >
               <div class="h-16 w-16 bg-slate-200 rounded-full flex items-center justify-center">
                 <img src="@/assets/images/redbook_icon.svg" alt="" srcset="" class="h-10" />
               </div>
@@ -261,6 +265,10 @@ const bannerData = [
 const isSponsorDialogVisible = ref(false);
 
 onMounted(() => {});
+
+function redirectToRedBook() {
+  window.open('https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9');
+}
 
 function installExtension() {
   window.open(
