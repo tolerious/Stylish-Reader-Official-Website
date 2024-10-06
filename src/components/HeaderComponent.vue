@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import { useStylishStore } from '@/stores/stylish';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 defineProps({
@@ -54,7 +54,9 @@ defineProps({
 
 const router = useRouter();
 
-const { setLoginState, isLogin } = useStylishStore();
+const { setLoginState, getLoginState } = useStylishStore();
+
+const isLogin = computed(() => getLoginState());
 
 function goToPersonalCenter() {
   router.push('/center');
@@ -64,6 +66,9 @@ function logout() {
   localStorage.removeItem('token');
   setLoginState(false);
   router.push('/');
+  setTimeout(() => {
+    window.location.reload();
+  }, 500);
 }
 
 onMounted(() => {

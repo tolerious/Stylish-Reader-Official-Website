@@ -7,16 +7,28 @@ export const useStylishStore = defineStore('stylish', () => {
 
   const isLogin = computed({
     get(): boolean {
-      return _isLogin.value;
+      const token = localStorage.getItem('token');
+      if (token || _isLogin.value) {
+        return true;
+      }
+      return false;
     },
     set(value: boolean) {
       _isLogin.value = value;
     }
   });
 
+  function getLoginState(): boolean {
+    const token = localStorage.getItem('token');
+    if (token || _isLogin.value) {
+      return true;
+    }
+    return false;
+  }
+
   function setLoginState(flag: boolean): void {
     _isLogin.value = flag;
   }
 
-  return { count, isLogin, setLoginState };
+  return { count, isLogin, setLoginState, getLoginState };
 });
