@@ -14,6 +14,13 @@
               >，<strong>背单词APP</strong>，<strong>网站</strong>，通过不断在语境中反复锤炼，让你的英语技能步步高升。
             </p>
             <p>学习英语的唯一捷径就是：不断重复，不断打磨，不断进步！</p>
+            <p>
+              欢迎访问我的小红书主页:<a
+                href="https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9"
+                class="text-pink-600"
+                >不正经教英语的Toly</a
+              >，查看更多视频。
+            </p>
             <div class="flex gap-5">
               <button
                 @click="router.push('/center')"
