@@ -2,29 +2,29 @@
   <div class="max-w-screen-xl m-auto">
     <div class="p-5">
       <!-- <router-link to="/my/list">视频列表</router-link> -->
-      <div id="about" class="flex flex-row mt-6">
-        <div class="w-2/4">
+      <div id="about" class="flex lg:flex-row lg:mt-6 flex-col">
+        <div class="lg:w-2/4">
           <div class="h-full flex flex-col justify-around text-gray-900">
-            <h1 class="text-3xl font-medium">
+            <h1 class="text-2xl lg:text-3xl font-medium">
               免费使用<strong>Stylish Reader</strong>更加快速，高效的学习，掌握英语技能。
             </h1>
-            <p>
+            <p class="mt-2">
               提供功能齐全的英语学习工具，包括
               <strong>浏览器插件</strong
               >，<strong>背单词APP</strong>，<strong>网站</strong>，通过不断在语境中反复锤炼，让你的英语技能步步高升。
             </p>
-            <p>学习英语的唯一捷径就是：不断重复，不断打磨，不断进步！</p>
-            <p>
+            <p class="my-2">学习英语的唯一捷径就是：不断重复，不断打磨，不断进步！</p>
+            <p class="mb-2">
               欢迎访问我的小红书主页:<a
                 href="https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9"
                 class="text-pink-600"
                 >不正经教英语的Toly</a
               >，查看更多视频。
             </p>
-            <div class="flex gap-5">
+            <div class="flex gap-5 flex-col lg:flex-row items-center lg:items-baseline">
               <button
                 @click="router.push('/center')"
-                class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-36 hover:animate-none"
+                class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-40 hover:animate-none"
               >
                 即刻开始
               </button>
@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <div class="w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
+        <div class="lg:w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
       </div>
       <div class="grid grid-cols-3 grid-rows-1 px-8 py-16 bg-slate-50 mt-5">
         <div v-for="data in bannerData" :key="data.iconName">
