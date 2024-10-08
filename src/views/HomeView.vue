@@ -45,8 +45,10 @@
         </div>
         <div class="lg:w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
       </div>
-      <div class="grid grid-cols-3 grid-rows-1 px-8 py-16 bg-slate-50 mt-5">
-        <div v-for="data in bannerData" :key="data.iconName">
+      <div
+        class="grid lg:grid-cols-3 grid-cols-1 lg:grid-rows-1 grid-rows-3 py-2 lg:px-8 lg:py-16 lg:bg-slate-50 mt-5"
+      >
+        <div v-for="data in bannerData" :key="data.iconName" class="py-2 lg:py-0 bg-slate-50 mb-2">
           <div class="grid grid-cols-2 grid-rows-2 gap-x-6">
             <div class="row-span-2 flex justify-end items-center">
               <div class="w-12 h-12 bg-pink-200 flex justify-center items-center rounded-full">
@@ -62,7 +64,7 @@
           </div>
         </div>
       </div>
-      <div id="feature" class="grid grid-rows-1 grid-cols-2 mt-5">
+      <div id="feature" class="grid lg:grid-rows-1 lg:grid-cols-2 grid-rows-2 grid-cols-1 mt-5">
         <div><img src="@/assets/images/features.webp" alt="" /></div>
         <div class="flex justify-end">
           <div class="w-[70%]">
