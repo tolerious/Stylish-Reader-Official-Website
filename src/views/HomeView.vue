@@ -5,7 +5,7 @@
       <div id="about" class="flex lg:flex-row lg:mt-6 flex-col">
         <div class="lg:w-2/4">
           <div class="h-full flex flex-col justify-around text-gray-900">
-            <h1 class="text-2xl lg:text-3xl font-medium">
+            <h1 class="text-3xl lg:text-3xl font-medium">
               免费使用<strong>Stylish Reader</strong>更加快速，高效的学习，掌握英语技能。
             </h1>
             <p class="mt-2">
@@ -46,7 +46,7 @@
         <div class="lg:w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
       </div>
       <div
-        class="grid lg:grid-cols-3 grid-cols-1 lg:grid-rows-1 grid-rows-3 py-2 lg:px-8 lg:py-16 lg:bg-slate-50 mt-5"
+        class="grid lg:grid-cols-3 grid-cols-1 lg:grid-rows-1 grid-rows-3 py-2 lg:px-8 lg:py-16 lg:bg-slate-50 lg:mt-5 mt-3"
       >
         <div v-for="data in bannerData" :key="data.iconName" class="py-2 lg:py-0 bg-slate-50 mb-2">
           <div class="grid grid-cols-2 grid-rows-2 gap-x-6">
@@ -66,8 +66,8 @@
       </div>
       <div id="feature" class="grid lg:grid-rows-1 lg:grid-cols-2 grid-rows-2 grid-cols-1 mt-5">
         <div><img src="@/assets/images/features.webp" alt="" /></div>
-        <div class="flex justify-end">
-          <div class="w-[70%]">
+        <div class="flex lg:justify-end justify-center">
+          <div class="lg:w-[70%]">
             <h3 class="text-3xl font-medium text-gray-900 leading-relaxed">
               Stylish Reader 提供这些功能
             </h3>
@@ -90,9 +90,9 @@
         </div>
       </div>
       <div id="pricing" class="flex flex-col">
-        <div class="text-center">
-          <h3 class="text-2xl text-gray-900 font-medium leading-relaxed">支持与鼓励</h3>
-          <p class="text-gray-600">
+        <div class="text-center lg:mt-5 mt-3">
+          <h3 class="text-3xl text-gray-900 font-medium leading-relaxed">支持与鼓励</h3>
+          <p class="text-gray-900">
             Stylish
             Reader的宗旨是帮助更多热爱学习英语的人提供一个学习利器，但由于服务器，数据库的运营都需要十分巨大的经费支撑，故提供了一些增值服务，希望大家多多支持。
           </p>
