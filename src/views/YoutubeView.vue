@@ -1,7 +1,9 @@
 <template>
-  <div class="grid grid-rows-[1fr_auto] grid-cols-[70%_1fr] h-full bg-black">
-    <div class="row-span-1 col-span-1">
-      <div class="h-full w-full grid grid-cols-1 grid-rows-[80%_1fr]">
+  <div
+    class="grid lg:grid-rows-[1fr_auto] lg:grid-cols-[70%_1fr] grid-cols-1 grid-rows-4 h-full bg-black"
+  >
+    <div video-container class="lg:row-span-1 lg:col-span-1">
+      <div class="lg:h-full w-full grid lg:grid-cols-1 lg:grid-rows-[80%_1fr]">
         <div class="mx-auto my-0 mt-1 w-full flex flex-row justify-center">
           <div id="player"></div>
         </div>
@@ -17,7 +19,7 @@
     </div>
     <!-- 中英文翻译不一致 -->
     <template v-if="!isTranscriptConsistent">
-      <div class="row-span-1 col-span-1 overflow-y-hidden">
+      <div in-coincide transcript-container- class="lg:row-span-1 col-span-1 overflow-y-hidden">
         <div
           class="overflow-y-hidden grid h-full"
           :class="[isChineseTranscriptVisible ? 'grid-rows-[50%_50%]' : 'grid-rows-1']"
@@ -67,7 +69,8 @@
     <!-- 中英文翻译一致 -->
     <template v-else>
       <div
-        class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-xl p-2 overflow-y-scroll"
+        coincide
+        class="lg:row-span-1 lg:col-span-1 col-span-2 border-l-[0.5px] border-l-gray-800 text-xl p-2 overflow-y-scroll"
         v-if="playerIsReady"
       >
         <div
@@ -84,7 +87,10 @@
       </div>
     </template>
 
-    <div class="row-span-1 col-span-2 h-12 border-t-gray-700 border-t-[0.5px] text-slate-300">
+    <div
+      tool-bar
+      class="lg:row-span-1 lg:col-span-2 h-12 border-t-gray-700 border-t-[0.5px] text-slate-300"
+    >
       <div class="h-full w-1/2 m-auto grid grid-rows-1 grid-cols-5">
         <div class="flex justify-center items-center">
           <img
