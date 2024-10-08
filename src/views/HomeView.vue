@@ -135,7 +135,7 @@
             </div>
             <button
               class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8"
-              @click="sponsorMoney"
+              @click="router.push('/center')"
             >
               0元开启
             </button>

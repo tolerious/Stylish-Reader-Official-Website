@@ -1,13 +1,15 @@
 <template>
   <div
-    class="grid lg:grid-rows-[1fr_auto] lg:grid-cols-[70%_1fr] grid-cols-1 grid-rows-4 h-full bg-black"
+    class="grid lg:grid-rows-[1fr_auto] lg:grid-cols-[70%_1fr] grid-cols-1 grid-rows-[40%_1fr_1fr_3rem] h-full bg-black"
   >
-    <div video-container class="lg:row-span-1 lg:col-span-1">
-      <div class="lg:h-full w-full grid lg:grid-cols-1 lg:grid-rows-[80%_1fr]">
-        <div class="mx-auto my-0 mt-1 w-full flex flex-row justify-center">
+    <div video-container class="lg:row-span-1 lg:col-span-1 h-full">
+      <div class="lg:h-full w-full grid lg:grid-cols-1 lg:grid-rows-[80%_1fr] h-full">
+        <div class="mx-auto my-0 mt-1 h-full w-full flex flex-row justify-center">
           <div id="player"></div>
         </div>
-        <div class="text-zinc-400 pt-3 text-center grid grid-cols-1 grid-rows-2 items-center">
+        <div
+          class="text-zinc-400 pt-3 text-center lg:grid grid-cols-1 grid-rows-2 items-center hidden"
+        >
           <div class="text-2xl text-amber-400">
             <div v-for="transcript in currentEnTranscriptText" :key="transcript">
               {{ transcript }}
@@ -19,7 +21,7 @@
     </div>
     <!-- 中英文翻译不一致 -->
     <template v-if="!isTranscriptConsistent">
-      <div in-coincide transcript-container- class="lg:row-span-1 col-span-1 overflow-y-hidden">
+      <div in-coincide-transcript class="lg:row-span-1 col-span-1 overflow-y-hidden">
         <div
           class="overflow-y-hidden grid h-full"
           :class="[isChineseTranscriptVisible ? 'grid-rows-[50%_50%]' : 'grid-rows-1']"
@@ -69,8 +71,8 @@
     <!-- 中英文翻译一致 -->
     <template v-else>
       <div
-        coincide
-        class="lg:row-span-1 lg:col-span-1 col-span-2 border-l-[0.5px] border-l-gray-800 text-xl p-2 overflow-y-scroll"
+        coincide-transcript
+        class="lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 text-xl p-2 overflow-y-scroll"
         v-if="playerIsReady"
       >
         <div
@@ -85,11 +87,16 @@
           </div>
         </div>
       </div>
+      <div
+        v-else
+        class="text-gray-300 lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 text-md p-2 overflow-y-scroll"
+      >
+        字幕加载中,请确保已打开VPN。
+      </div>
     </template>
-
     <div
       tool-bar
-      class="lg:row-span-1 lg:col-span-2 h-12 border-t-gray-700 border-t-[0.5px] text-slate-300"
+      class="lg:row-span-1 lg:col-span-2 lg:h-12 border-t-gray-700 border-t-[0.5px] text-slate-300"
     >
       <div class="h-full w-1/2 m-auto grid grid-rows-1 grid-cols-5">
         <div class="flex justify-center items-center">
@@ -272,7 +279,7 @@ function scrollElement() {
   const element = document.querySelector('.highlight');
   if (element) {
     element.scrollIntoView({
-      behavior: 'smooth',
+      behavior: 'auto',
       block: 'center',
       inline: 'nearest'
     });
@@ -280,7 +287,7 @@ function scrollElement() {
   const elementCopy = document.querySelector('.highlight-right');
   if (elementCopy) {
     elementCopy.scrollIntoView({
-      behavior: 'smooth',
+      behavior: 'auto',
       block: 'center',
       inline: 'nearest'
     });
