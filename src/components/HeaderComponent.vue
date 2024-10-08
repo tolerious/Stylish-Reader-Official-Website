@@ -11,7 +11,7 @@
         @click="router.push('/')"
         class="cursor-pointer flex flex-row justify-start items-center mx-auto"
       >
-        <img src="@/assets/images/logo.svg" alt="" srcset="" />
+        <img src="@/assets/images/logo.svg" alt="" srcset="" class="h-full" />
       </div>
       <div class="hidden lg:block">
         <ul class="flex justify-center flex-row h-full items-center text-gray-950">

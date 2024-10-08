@@ -40,6 +40,13 @@
               >
                 浏览器插件
               </button>
+              <button
+                v-if="isLogin"
+                @click="logout"
+                class="lg:hidden border-pink-600 border-[1px] px-8 py-3 text-pink-600 rounded-md active:shadow-sm active:shadow-pink-800 w-40 hover:animate-none"
+              >
+                退出登录
+              </button>
             </div>
           </div>
         </div>
@@ -232,7 +239,7 @@
     </div>
   </div>
   <div
-    class="fixed text-center top-1/4 left-1/4 h-[50%] w-[50%] bg-slate-50 border-slate-300 border-[1px] rounded-md"
+    class="fixed text-center top-1/4 left-[10%] lg:h-[50%] lg:w-[50%] w-[80%] bg-slate-50 border-slate-300 border-[1px] rounded-md"
     v-if="isSponsorDialogVisible"
   >
     <img class="h-[80%] mx-auto my-auto" src="@/assets/images/sponsor.jpg" alt="" srcset="" />
@@ -251,10 +258,13 @@
 import articleIcon from '@/assets/images/article.svg';
 import userIcon from '@/assets/images/user.svg';
 import wordIcon from '@/assets/images/word.svg';
-import { onMounted, ref } from 'vue';
+import { useStylishStore } from '@/stores/stylish';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+
+const { setLoginState, getLoginState } = useStylishStore();
 
 const bannerData = [
   {
@@ -276,7 +286,18 @@ const bannerData = [
 
 const isSponsorDialogVisible = ref(false);
 
+const isLogin = computed(() => getLoginState());
+
 onMounted(() => {});
+
+function logout() {
+  localStorage.removeItem('token');
+  setLoginState(false);
+  router.push('/');
+  setTimeout(() => {
+    window.location.reload();
+  }, 500);
+}
 
 function redirectToRedBook() {
   window.open('https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9');
