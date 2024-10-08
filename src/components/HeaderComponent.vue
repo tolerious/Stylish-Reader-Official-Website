@@ -4,7 +4,7 @@
     v-if="isHeaderFooterVisible"
   >
     <div
-      class="max-w-screen-xl px-5 py-3 m-auto grid top-0 grid-rows-1 lg:grid-cols-4 h-full grid-cols-3"
+      class="max-w-screen-xl px-5 py-3 m-auto grid top-0 grid-rows-1 lg:grid-cols-[150px_1fr_150px] h-full grid-cols-3"
     >
       <div class="lg:hidden"></div>
       <div
@@ -13,7 +13,7 @@
       >
         <img src="@/assets/images/logo.svg" alt="" srcset="" />
       </div>
-      <div class="col-span-2 hidden lg:block">
+      <div class="hidden lg:block">
         <ul class="flex justify-center flex-row h-full items-center text-gray-950">
           <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#about">简介</a></li>
           <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#feature">功能</a></li>
