@@ -105,7 +105,7 @@
             为服务器加电5毛钱⚡
           </button>
         </div>
-        <div class="grid grid-rows-1 grid-cols-3 gap-4">
+        <div class="lg:grid lg:grid-rows-1 lg:grid-cols-3 lg:gap-4 flex flex-col gap-2">
           <div
             class="rounded-md border-2 border-slate-100 py-10 px-8 flex flex-col justify-start items-center"
           >
