@@ -1,12 +1,12 @@
 <template>
-  <div container class="grid grid-rows-1 grid-cols-[200px_1fr] h-full">
+  <div container class="lg:grid lg:grid-rows-1 lg:grid-cols-[200px_1fr] h-full">
     <div class="left-bar">
-      <div class="flex  justify-around">
+      <div class="flex justify-around">
         <button
           @click="convertVideoHandler"
           class="rounded-sm bg-pink-600 px-2 py-1 text-white border-pink-600 m-2 cursor-pointer active:shadow-md active:shadow-pink-800 select-none"
         >
-          转换视频
+          转换所有视频
         </button>
       </div>
     </div>
