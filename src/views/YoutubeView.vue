@@ -21,7 +21,7 @@
     </div>
     <!-- 中英文翻译不一致 -->
     <template v-if="!isTranscriptConsistent">
-      <div in-coincide-transcript class="lg:row-span-1 col-span-1 overflow-y-hidden">
+      <div in-coincide-transcript class="row-span-2 lg:row-span-1 col-span-1 overflow-y-hidden">
         <div
           class="overflow-y-hidden grid h-full"
           :class="[isChineseTranscriptVisible ? 'grid-rows-[50%_50%]' : 'grid-rows-1']"
@@ -30,14 +30,14 @@
           <!-- 英文显示区域 -->
           <div class="overflow-y-scroll border-b-gray-800 border-b-[0.5px]">
             <div
-              class="max-h-full row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-xl p-2"
+              class="max-h-full row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 lg:text-xl text-lg p-2"
               v-if="playerIsReady"
               style="height: 100%; max-height: 100%"
             >
               <div
                 v-for="[_, enData] in enTranscriptData"
                 :key="_"
-                class="mb-3"
+                class="lg:mb-3 mb-1"
                 :class="[
                   shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
                 ]"
@@ -49,10 +49,10 @@
           <!-- 中文显示区域 -->
           <div class="overflow-y-scroll" v-if="isChineseTranscriptVisible">
             <div
-              class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-xl p-2"
+              class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 lg:text-xl text-base p-2"
               v-if="playerIsReady"
             >
-              <div v-for="zhData in zhTranscriptData" :key="zhData.tStartMs" class="mb-3">
+              <div v-for="zhData in zhTranscriptData" :key="zhData.tStartMs" class="lg:mb-3 mb-1">
                 <div
                   :class="[
                     shouldHightLightText(zhData)
@@ -60,11 +60,22 @@
                       : 'text-stone-500'
                   ]"
                 >
-                  {{ convertSegmentListToString(zhData.segs) }}
+                  {{
+                    convertSegmentListToString(zhData.segs)
+                      .trim()
+                      .replaceAll(' ', '')
+                      .replaceAll('，', ',')
+                  }}
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div
+          v-else
+          class="text-gray-300 lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 text-md p-2 overflow-y-scroll"
+        >
+          字母加载中,请确保已打开VPN。
         </div>
       </div>
     </template>
@@ -72,7 +83,7 @@
     <template v-else>
       <div
         coincide-transcript
-        class="lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 text-xl p-2 overflow-y-scroll"
+        class="lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 lg:text-xl text-lg p-2 overflow-y-scroll"
         v-if="playerIsReady"
       >
         <div
