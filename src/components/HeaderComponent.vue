@@ -3,14 +3,17 @@
     class="h-[64px] fixed w-full bg-white shadow-sm shadow-slate-200"
     v-if="isHeaderFooterVisible"
   >
-    <div class="max-w-screen-xl px-5 py-3 m-auto grid top-0 grid-rows-1 grid-cols-4 h-full">
+    <div
+      class="max-w-screen-xl px-5 py-3 m-auto grid top-0 grid-rows-1 lg:grid-cols-4 h-full grid-cols-3"
+    >
+      <div class="lg:hidden"></div>
       <div
         @click="router.push('/')"
-        class="cursor-pointer flex flex-row justify-start items-center"
+        class="cursor-pointer flex flex-row justify-start items-center mx-auto"
       >
         <img src="@/assets/images/logo.svg" alt="" srcset="" />
       </div>
-      <div class="col-span-2">
+      <div class="col-span-2 hidden lg:block">
         <ul class="flex justify-center flex-row h-full items-center text-gray-950">
           <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#about">简介</a></li>
           <li class="px-6 cursor-pointer hover:text-pink-600"><a href="#feature">功能</a></li>
@@ -23,7 +26,7 @@
           </li>
         </ul>
       </div>
-      <div class="bg--300 flex justify-end items-center">
+      <div class="hidden bg--300 lg:flex justify-end items-center">
         <button
           v-if="isLogin"
           @click="logout"
@@ -39,6 +42,7 @@
           免费使用
         </button>
       </div>
+      <div class="lg:hidden"></div>
     </div>
   </header>
 </template>
