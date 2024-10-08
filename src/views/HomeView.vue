@@ -193,7 +193,10 @@
             <div class="w-60">联系我吧</div>
             <div class="w-60"></div>
           </div>
-          <div container class="flex items-center justify-around mt-10">
+          <div
+            container
+            class="flex items-center justify-around mt-10 lg:flex-row flex-col gap-3 lg:gap-0"
+          >
             <div item class="flex flex-col items-center cursor-pointer w-60">
               <div class="h-16 w-16 bg-slate-200 rounded-full flex items-center justify-center">
                 <img src="@/assets/images/wechat_icon.svg" alt="" srcset="" class="h-10" />
