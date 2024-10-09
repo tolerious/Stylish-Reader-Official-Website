@@ -83,7 +83,7 @@
     <template v-else>
       <div
         coincide-transcript
-        class="lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 lg:text-xl text-lg p-2 overflow-y-scroll"
+        class="lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 lg:text-xl text-lg p-2 overflow-y-scroll lg:h-full"
         v-if="playerIsReady"
       >
         <div
@@ -290,7 +290,7 @@ function scrollElement() {
   const element = document.querySelector('.highlight');
   if (element) {
     element.scrollIntoView({
-      behavior: 'auto',
+      behavior: 'smooth',
       block: 'center',
       inline: 'nearest'
     });
@@ -298,7 +298,7 @@ function scrollElement() {
   const elementCopy = document.querySelector('.highlight-right');
   if (elementCopy) {
     elementCopy.scrollIntoView({
-      behavior: 'auto',
+      behavior: 'smooth',
       block: 'center',
       inline: 'nearest'
     });
