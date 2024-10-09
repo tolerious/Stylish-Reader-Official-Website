@@ -8,4 +8,4 @@ export const registerUrl = '/user/create';
 
 export const articleToken = '/articletoken';
 
-export const articleDetail = '/article'
+export const articleDetail = '/article';

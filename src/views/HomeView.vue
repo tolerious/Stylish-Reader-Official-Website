@@ -2,29 +2,29 @@
   <div class="max-w-screen-xl m-auto">
     <div class="p-5">
       <!-- <router-link to="/my/list">视频列表</router-link> -->
-      <div id="about" class="flex flex-row mt-6">
-        <div class="w-2/4">
+      <div id="about" class="flex lg:flex-row lg:mt-6 flex-col">
+        <div class="lg:w-2/4">
           <div class="h-full flex flex-col justify-around text-gray-900">
-            <h1 class="text-3xl font-medium">
+            <h1 class="text-3xl lg:text-3xl font-medium">
               免费使用<strong>Stylish Reader</strong>更加快速，高效的学习，掌握英语技能。
             </h1>
-            <p>
+            <p class="mt-2">
               提供功能齐全的英语学习工具，包括
               <strong>浏览器插件</strong
               >，<strong>背单词APP</strong>，<strong>网站</strong>，通过不断在语境中反复锤炼，让你的英语技能步步高升。
             </p>
-            <p>学习英语的唯一捷径就是：不断重复，不断打磨，不断进步！</p>
-            <p>
+            <p class="my-2">学习英语的唯一捷径就是：不断重复，不断打磨，不断进步！</p>
+            <p class="mb-2">
               欢迎访问我的小红书主页:<a
                 href="https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9"
                 class="text-pink-600"
                 >不正经教英语的Toly</a
               >，查看更多视频。
             </p>
-            <div class="flex gap-5">
+            <div class="flex gap-5 flex-col lg:flex-row items-center lg:items-baseline">
               <button
                 @click="router.push('/center')"
-                class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-36 hover:animate-none"
+                class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-40 hover:animate-none"
               >
                 即刻开始
               </button>
@@ -40,13 +40,22 @@
               >
                 浏览器插件
               </button>
+              <button
+                v-if="isLogin"
+                @click="logout"
+                class="lg:hidden border-pink-600 border-[1px] px-8 py-3 text-pink-600 rounded-md active:shadow-sm active:shadow-pink-800 w-40 hover:animate-none"
+              >
+                退出登录
+              </button>
             </div>
           </div>
         </div>
-        <div class="w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
+        <div class="lg:w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
       </div>
-      <div class="grid grid-cols-3 grid-rows-1 px-8 py-16 bg-slate-50 mt-5">
-        <div v-for="data in bannerData" :key="data.iconName">
+      <div
+        class="grid lg:grid-cols-3 grid-cols-1 lg:grid-rows-1 grid-rows-3 py-2 lg:px-8 lg:py-16 lg:bg-slate-50 lg:mt-5 mt-3"
+      >
+        <div v-for="data in bannerData" :key="data.iconName" class="py-2 lg:py-0 bg-slate-50 mb-2">
           <div class="grid grid-cols-2 grid-rows-2 gap-x-6">
             <div class="row-span-2 flex justify-end items-center">
               <div class="w-12 h-12 bg-pink-200 flex justify-center items-center rounded-full">
@@ -62,10 +71,10 @@
           </div>
         </div>
       </div>
-      <div id="feature" class="grid grid-rows-1 grid-cols-2 mt-5">
+      <div id="feature" class="grid lg:grid-rows-1 lg:grid-cols-2 grid-rows-2 grid-cols-1 mt-5">
         <div><img src="@/assets/images/features.webp" alt="" /></div>
-        <div class="flex justify-end">
-          <div class="w-[70%]">
+        <div class="flex lg:justify-end justify-center">
+          <div class="lg:w-[70%]">
             <h3 class="text-3xl font-medium text-gray-900 leading-relaxed">
               Stylish Reader 提供这些功能
             </h3>
@@ -88,9 +97,9 @@
         </div>
       </div>
       <div id="pricing" class="flex flex-col">
-        <div class="text-center">
-          <h3 class="text-2xl text-gray-900 font-medium leading-relaxed">支持与鼓励</h3>
-          <p class="text-gray-600">
+        <div class="text-center lg:mt-5 mt-3">
+          <h3 class="text-3xl text-gray-900 font-medium leading-relaxed">支持与鼓励</h3>
+          <p class="text-gray-900">
             Stylish
             Reader的宗旨是帮助更多热爱学习英语的人提供一个学习利器，但由于服务器，数据库的运营都需要十分巨大的经费支撑，故提供了一些增值服务，希望大家多多支持。
           </p>
@@ -103,7 +112,7 @@
             为服务器加电5毛钱⚡
           </button>
         </div>
-        <div class="grid grid-rows-1 grid-cols-3 gap-4">
+        <div class="lg:grid lg:grid-rows-1 lg:grid-cols-3 lg:gap-4 flex flex-col gap-2">
           <div
             class="rounded-md border-2 border-slate-100 py-10 px-8 flex flex-col justify-start items-center"
           >
@@ -126,7 +135,7 @@
             </div>
             <button
               class="py-1 px-5 border-2 border-pink-600 text-pink-600 mt-8"
-              @click="sponsorMoney"
+              @click="router.push('/center')"
             >
               0元开启
             </button>
@@ -191,7 +200,10 @@
             <div class="w-60">联系我吧</div>
             <div class="w-60"></div>
           </div>
-          <div container class="flex items-center justify-around mt-10">
+          <div
+            container
+            class="flex items-center justify-around mt-10 lg:flex-row flex-col gap-3 lg:gap-0"
+          >
             <div item class="flex flex-col items-center cursor-pointer w-60">
               <div class="h-16 w-16 bg-slate-200 rounded-full flex items-center justify-center">
                 <img src="@/assets/images/wechat_icon.svg" alt="" srcset="" class="h-10" />
@@ -227,7 +239,7 @@
     </div>
   </div>
   <div
-    class="fixed text-center top-1/4 left-1/4 h-[50%] w-[50%] bg-slate-50 border-slate-300 border-[1px] rounded-md"
+    class="fixed text-center top-1/4 left-[10%] lg:h-[50%] lg:w-[50%] w-[80%] bg-slate-50 border-slate-300 border-[1px] rounded-md"
     v-if="isSponsorDialogVisible"
   >
     <img class="h-[80%] mx-auto my-auto" src="@/assets/images/sponsor.jpg" alt="" srcset="" />
@@ -246,10 +258,13 @@
 import articleIcon from '@/assets/images/article.svg';
 import userIcon from '@/assets/images/user.svg';
 import wordIcon from '@/assets/images/word.svg';
-import { onMounted, ref } from 'vue';
+import { useStylishStore } from '@/stores/stylish';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+
+const { setLoginState, getLoginState } = useStylishStore();
 
 const bannerData = [
   {
@@ -271,7 +286,18 @@ const bannerData = [
 
 const isSponsorDialogVisible = ref(false);
 
+const isLogin = computed(() => getLoginState());
+
 onMounted(() => {});
+
+function logout() {
+  localStorage.removeItem('token');
+  setLoginState(false);
+  router.push('/');
+  setTimeout(() => {
+    window.location.reload();
+  }, 500);
+}
 
 function redirectToRedBook() {
   window.open('https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9');

@@ -3,6 +3,7 @@ export interface Video {
   title: string;
   createdAt: string;
   youtubeVideoId: string;
+  isTransformed: boolean;
 }
 
 export interface Segment {

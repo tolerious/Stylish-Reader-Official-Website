@@ -1,11 +1,15 @@
 <template>
-  <div class="grid grid-rows-[1fr_auto] grid-cols-[70%_1fr] h-full bg-black">
-    <div class="row-span-1 col-span-1">
-      <div class="h-full w-full grid grid-cols-1 grid-rows-[80%_1fr]">
-        <div class="mx-auto my-0 mt-1 w-full flex flex-row justify-center">
+  <div
+    class="grid lg:grid-rows-[1fr_auto] lg:grid-cols-[70%_1fr] grid-cols-1 grid-rows-[40%_1fr_1fr_3rem] h-full bg-black"
+  >
+    <div video-container class="lg:row-span-1 lg:col-span-1 h-full">
+      <div class="lg:h-full w-full grid lg:grid-cols-1 lg:grid-rows-[80%_1fr] h-full">
+        <div class="mx-auto my-0 mt-1 h-full w-full flex flex-row justify-center">
           <div id="player"></div>
         </div>
-        <div class="text-zinc-400 pt-3 text-center grid grid-cols-1 grid-rows-2 items-center">
+        <div
+          class="text-zinc-400 pt-3 text-center lg:grid grid-cols-1 grid-rows-2 items-center hidden"
+        >
           <div class="text-2xl text-amber-400">
             <div v-for="transcript in currentEnTranscriptText" :key="transcript">
               {{ transcript }}
@@ -17,7 +21,7 @@
     </div>
     <!-- 中英文翻译不一致 -->
     <template v-if="!isTranscriptConsistent">
-      <div class="row-span-1 col-span-1 overflow-y-hidden">
+      <div in-coincide-transcript class="row-span-2 lg:row-span-1 col-span-1 overflow-y-hidden">
         <div
           class="overflow-y-hidden grid h-full"
           :class="[isChineseTranscriptVisible ? 'grid-rows-[50%_50%]' : 'grid-rows-1']"
@@ -26,14 +30,14 @@
           <!-- 英文显示区域 -->
           <div class="overflow-y-scroll border-b-gray-800 border-b-[0.5px]">
             <div
-              class="max-h-full row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-xl p-2"
+              class="max-h-full row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 lg:text-xl text-lg p-2"
               v-if="playerIsReady"
               style="height: 100%; max-height: 100%"
             >
               <div
                 v-for="[_, enData] in enTranscriptData"
                 :key="_"
-                class="mb-3"
+                class="lg:mb-3 mb-1"
                 :class="[
                   shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
                 ]"
@@ -45,10 +49,10 @@
           <!-- 中文显示区域 -->
           <div class="overflow-y-scroll" v-if="isChineseTranscriptVisible">
             <div
-              class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-xl p-2"
+              class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 lg:text-xl text-base p-2"
               v-if="playerIsReady"
             >
-              <div v-for="zhData in zhTranscriptData" :key="zhData.tStartMs" class="mb-3">
+              <div v-for="zhData in zhTranscriptData" :key="zhData.tStartMs" class="lg:mb-3 mb-1">
                 <div
                   :class="[
                     shouldHightLightText(zhData)
@@ -56,18 +60,30 @@
                       : 'text-stone-500'
                   ]"
                 >
-                  {{ convertSegmentListToString(zhData.segs) }}
+                  {{
+                    convertSegmentListToString(zhData.segs)
+                      .trim()
+                      .replaceAll(' ', '')
+                      .replaceAll('，', ',')
+                  }}
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div
+          v-else
+          class="text-gray-300 lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 text-md p-2 overflow-y-scroll"
+        >
+          字母加载中,请确保已打开VPN。
         </div>
       </div>
     </template>
     <!-- 中英文翻译一致 -->
     <template v-else>
       <div
-        class="row-span-1 col-span-1 border-l-[0.5px] border-l-gray-800 text-xl p-2 overflow-y-scroll"
+        coincide-transcript
+        class="lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 lg:text-xl text-lg p-2 overflow-y-scroll lg:h-full"
         v-if="playerIsReady"
       >
         <div
@@ -82,9 +98,17 @@
           </div>
         </div>
       </div>
+      <div
+        v-else
+        class="text-gray-300 lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 text-md p-2 overflow-y-scroll"
+      >
+        字幕加载中,请确保已打开VPN。
+      </div>
     </template>
-
-    <div class="row-span-1 col-span-2 h-12 border-t-gray-700 border-t-[0.5px] text-slate-300">
+    <div
+      tool-bar
+      class="lg:row-span-1 lg:col-span-2 lg:h-12 border-t-gray-700 border-t-[0.5px] text-slate-300"
+    >
       <div class="h-full w-1/2 m-auto grid grid-rows-1 grid-cols-5">
         <div class="flex justify-center items-center">
           <img
