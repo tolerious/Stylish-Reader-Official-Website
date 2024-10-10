@@ -75,7 +75,7 @@
           v-else
           class="text-gray-300 lg:row-span-1 lg:col-span-1 row-span-2 border-l-[0.5px] border-l-gray-800 text-md p-2 overflow-y-scroll"
         >
-          字母加载中,请确保已打开VPN。
+          字幕加载中,请确保已打开VPN。
         </div>
       </div>
     </template>
