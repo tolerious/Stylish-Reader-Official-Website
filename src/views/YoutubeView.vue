@@ -114,12 +114,14 @@
           <span @click="switchChineseTranscriptHandler" class="h-6 cursor-pointer">中文字幕</span>
         </div>
         <div class="flex justify-center items-center">
-          <span @click="seekBack" class="h-6 cursor-pointer">后退</span>
+          <span @click="seekBack" class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            >后退</span
+          >
         </div>
         <div class="flex justify-center items-center">
           <span
             @click="playPauseVideo"
-            class="h-6 cursor-pointer"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
             v-if="
               [PlayerState.NotStarted, PlayerState.Paused, PlayerState.Ended].includes(
                 currentPlayerState
@@ -127,13 +129,26 @@
             "
             >开始</span
           >
-          <span v-else @click="playPauseVideo" class="h-6 cursor-pointer">暂停</span>
+          <span
+            v-else
+            @click="playPauseVideo"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            >暂停</span
+          >
         </div>
         <div class="flex justify-center items-center">
-          <span @click="seekAhead" class="h-6 cursor-pointer">前进</span>
+          <span
+            @click="seekAhead"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            >前进</span
+          >
         </div>
         <div class="flex justify-center items-center">
-          <span @click="generatePdfHandler" class="h-6 cursor-pointer">字幕导出</span>
+          <span
+            @click="generatePdfHandler"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            >字幕导出</span
+          >
         </div>
       </div>
     </div>
