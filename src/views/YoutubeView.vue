@@ -116,7 +116,7 @@
         <div class="flex justify-center items-center">
           <span @click="seekBack" class="h-6 cursor-pointer">后退</span>
         </div>
-        <div class="flex justify-center items-center text-sm">
+        <div class="flex justify-center items-center">
           <span
             @click="playPauseVideo"
             class="h-6 cursor-pointer"
