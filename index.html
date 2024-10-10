@@ -4,11 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Stylish Reader,英语,托福,雅思,英语学习,背单词,零基础,学英语,英语口语,英语听力">
+    <meta
+      name="description"
+      content="Stylish Reader,英语,托福,雅思,英语学习,背单词,零基础,学英语,英语口语,英语听力"
+    />
     <title>Stylish Reader</title>
   </head>
   <body>
-    <div id="app" class="h-screen"></div>
+    <div id="app" class="h-full"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
+  <script>
+    const height = window.innerHeight;
+    const app = document.getElementById('app');
+    app.style.height = height + 'px';
+    console.log(window.innerHeight);
+  </script>
 </html>
