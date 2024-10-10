@@ -107,72 +107,33 @@
     </template>
     <div
       tool-bar
-      class="lg:row-span-1 lg:col-span-2 lg:h-12 border-t-gray-700 border-t-[0.5px] text-slate-300"
+      class="lg:row-span-1 lg:col-span-2 lg:h-12 h-12 border-t-gray-700 border-t-[0.5px] text-slate-400"
     >
-      <div class="h-full w-1/2 m-auto grid grid-rows-1 grid-cols-5">
+      <div class="h-full lg:w-1/2 m-auto grid grid-rows-1 grid-cols-5">
         <div class="flex justify-center items-center">
-          <img
-            @click="switchChineseTranscriptHandler"
-            src="@/assets/images/export-zh.svg"
-            title="开启/关闭中文字幕"
-            class="h-6 cursor-pointer"
-            alt=""
-            srcset=""
-          />
+          <span @click="switchChineseTranscriptHandler" class="h-6 cursor-pointer">中文字幕</span>
         </div>
         <div class="flex justify-center items-center">
-          <img
-            @click="seekBack"
-            src="@/assets/images/backward.svg"
-            title="后退10秒"
-            class="h-6 cursor-pointer"
-            alt=""
-            srcset=""
-          />
+          <span @click="seekBack" class="h-6 cursor-pointer">后退</span>
         </div>
-        <div class="flex justify-center items-center">
-          <img
+        <div class="flex justify-center items-center text-sm">
+          <span
+            @click="playPauseVideo"
+            class="h-6 cursor-pointer"
             v-if="
               [PlayerState.NotStarted, PlayerState.Paused, PlayerState.Ended].includes(
                 currentPlayerState
               )
             "
-            @click="playPauseVideo"
-            src="@/assets/images/play.svg"
-            title="开始"
-            class="h-6 cursor-pointer"
-            alt=""
-            srcset=""
-          />
-          <img
-            v-else
-            @click="playPauseVideo"
-            src="@/assets/images/pause.svg"
-            title="暂停"
-            class="h-6 cursor-pointer"
-            alt=""
-            srcset=""
-          />
+            >开始</span
+          >
+          <span v-else @click="playPauseVideo" class="h-6 cursor-pointer">暂停</span>
         </div>
         <div class="flex justify-center items-center">
-          <img
-            @click="seekAhead"
-            src="@/assets/images/forward.svg"
-            title="前进10秒"
-            class="h-6 cursor-pointer"
-            alt=""
-            srcset=""
-          />
+          <span @click="seekAhead" class="h-6 cursor-pointer">前进</span>
         </div>
         <div class="flex justify-center items-center">
-          <img
-            @click="generatePdfHandler"
-            src="@/assets/images/export-en.svg"
-            title="导出英文文稿"
-            class="h-6 cursor-pointer"
-            alt=""
-            srcset=""
-          />
+          <span @click="generatePdfHandler" class="h-6 cursor-pointer">字幕导出</span>
         </div>
       </div>
     </div>
