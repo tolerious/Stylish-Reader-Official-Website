@@ -1,6 +1,6 @@
 <template>
   <div
-    class="cursor-pointer p-2 rounded-sm shadow-md shadow-pink-100 grid grid-rows-1 grid-cols-[1fr_25%] lg:mb-3"
+    class="cursor-pointer p-2 rounded-sm shadow-md shadow-pink-100 grid grid-rows-1 grid-cols-[1fr_25%] lg:grid-cols-[1fr_20%] lg:mb-3"
   >
     <div @click="redirectToDetail()">
       <div class="flex items-start gap-1">
