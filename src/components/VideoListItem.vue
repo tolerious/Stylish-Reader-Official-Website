@@ -10,7 +10,7 @@
       <div v-if="video.isTransformed" class="text-sm text-green-500">已转换</div>
       <div v-else class="text-sm text-red-500">未转换</div>
     </div>
-    <div class="flex flex-col lg:flex-row justify-between">
+    <div class="flex flex-col lg:flex-row justify-between items-center">
       <button
         @click="transformVideo(video._id)"
         class="shadow-sm shadow-gray-300 px-2 py-1 border active:shadow-gray-500 text-sm"
