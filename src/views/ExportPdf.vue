@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 text-xl leading-8 font-mono" role="main">
+  <div class="p-2 text-2xl font-mono leading-9">
     <header class="text-center text-2xl">{{ articleTitle }}</header>
     <section>{{ contentString }}</section>
   </div>
@@ -61,7 +61,7 @@ onMounted(async () => {
     if (phraseFloatingIcon) {
       phraseFloatingIcon.style.display = 'none';
     }
-    window.print();
+    // window.print();
   }, 1000);
 });
 </script>
