@@ -20,9 +20,9 @@ dependencies:
   vue-router:
     specifier: ^4.4.3
     version: 4.4.5(vue@3.5.6)
-  vueperslides:
-    specifier: ^3.5.1
-    version: 3.5.1(vue@3.5.6)
+  vue3-carousel:
+    specifier: ^0.3.4
+    version: 0.3.4(vue@3.5.6)
 
 devDependencies:
   '@rushstack/eslint-patch':
@@ -5139,6 +5139,14 @@ packages:
       typescript: 5.4.5
     dev: true
 
+  /vue3-carousel@0.3.4(vue@3.5.6):
+    resolution: {integrity: sha512-jImUDbQa/9pELxUQdkflUPXL94V+iQZaOPUxWDBKSffCuxhYcV3sDM40pxoiYxUxXoNCDLUF4u9Ug6Xjdt4nkA==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.5.6(typescript@5.4.5)
+    dev: false
+
   /vue@3.5.6(typescript@5.4.5):
     resolution: {integrity: sha512-zv+20E2VIYbcJOzJPUWp03NOGFhMmpCKOfSxVTmCYyYFFko48H9tmuQFzYj7tu4qX1AeXlp9DmhIP89/sSxxhw==}
     peerDependencies:
@@ -5153,14 +5161,6 @@ packages:
       '@vue/server-renderer': 3.5.6(vue@3.5.6)
       '@vue/shared': 3.5.6
       typescript: 5.4.5
-
-  /vueperslides@3.5.1(vue@3.5.6):
-    resolution: {integrity: sha512-g/Lauv1svlSaERzLNeys0oeLmpDFiXkIa+lxg+lJma6m6wXqJKzKKVIi8Kvc95XPnl42n7PYYJyr0+FMV6WZGw==}
-    peerDependencies:
-      vue: ^2.6.14 || ^3.2.0
-    dependencies:
-      vue: 3.5.6(typescript@5.4.5)
-    dev: false
 
   /w3c-xmlserializer@5.0.0:
     resolution: {integrity: sha512-o8qghlI8NZHU1lLPrpi2+Uq7abh4GGPpYANlalzWxyWteJOCsr/P+oPBA49TOLu5FTZO4d3F9MnWJfiMo4BkmA==}
