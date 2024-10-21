@@ -11,7 +11,7 @@
       </div>
       <div class="flex justify-around">
         <button
-          @click="navigateRecideWord"
+          @click="navigateReciteWord"
           class="rounded-sm bg-pink-600 px-2 py-1 text-white border-pink-600 m-2 cursor-pointer active:shadow-md active:shadow-pink-800 select-none"
         >
           我要背单词
@@ -19,43 +19,27 @@
       </div>
     </div>
     <div class="flex flex-col items-center bg- py-2 max-h-full overflow-scroll">
-      <div class="w-11/12 flex flex-col gap-y-2">
-        <video-list-item
-          @transformed="handleTransformed"
-          @delete="handleDelete"
-          :video="video"
-          v-for="video in videos"
-          :key="video._id"
-        ></video-list-item>
-      </div>
+      <RouterView />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import VideoListItem from '@/components/VideoListItem.vue';
 import { articleToken, youtubeVideos } from '@/constants';
-import type { Video } from '@/types';
 import { httpRequest } from '@/utils/requestUtils';
-import { onMounted, ref, type Ref } from 'vue';
+import { onMounted } from 'vue';
+import type { Video } from '@/types';
+import type { Ref } from 'vue';
+import { ref } from 'vue';
 
 const videos: Ref<Video[]> = ref([]);
 
-function navigateRecideWord() {
+onMounted(() => {
+  getVideos();
+});
+
+function navigateReciteWord() {
   window.open('https://app.stylishreader.com');
-}
-
-function handleTransformed() {
-  getVideos();
-}
-
-function handleDelete() {
-  getVideos();
-}
-
-async function getVideos() {
-  const r = await httpRequest.get(youtubeVideos);
-  videos.value = r.data.data;
 }
 
 async function convertVideoHandler() {
@@ -66,7 +50,8 @@ async function convertVideoHandler() {
   }
 }
 
-onMounted(() => {
-  getVideos();
-});
+async function getVideos() {
+  const r = await httpRequest.get(youtubeVideos);
+  videos.value = r.data.data;
+}
 </script>
