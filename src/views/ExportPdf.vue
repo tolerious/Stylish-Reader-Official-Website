@@ -61,7 +61,7 @@ onMounted(async () => {
     if (phraseFloatingIcon) {
       phraseFloatingIcon.style.display = 'none';
     }
-    // window.print();
+    window.print();
   }, 1000);
 });
 </script>
