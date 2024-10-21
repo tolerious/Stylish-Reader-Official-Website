@@ -6,7 +6,7 @@
         <div class="lg:w-2/4">
           <div class="h-full flex flex-col justify-around text-gray-900">
             <h1 class="text-3xl lg:text-3xl font-medium">
-              免费使用<strong>Stylish Reader</strong>更加快速，高效的学习，掌握英语技能。
+              免费使用<strong>Stylish Reader</strong>更加快速，高效的提升英语技能
             </h1>
             <p class="mt-2">
               提供功能齐全的英语学习工具，包括
@@ -19,7 +19,7 @@
                 href="https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9"
                 class="text-pink-600"
                 >不正经教英语的Toly</a
-              >，查看更多视频。
+              >，查看更多学习视频。
             </p>
             <div class="flex gap-5 flex-col lg:flex-row items-center lg:items-baseline">
               <button
@@ -50,7 +50,10 @@
             </div>
           </div>
         </div>
-        <div class="lg:w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
+        <div class="lg:w-2/4">
+          <swiper-component></swiper-component>
+          <!-- <img src="@/assets/images/about-right.webp" alt="" /> -->
+        </div>
       </div>
       <div
         class="grid lg:grid-cols-3 grid-cols-1 lg:grid-rows-1 grid-rows-3 py-2 lg:px-8 lg:py-16 lg:bg-slate-50 lg:mt-5 mt-3"
@@ -261,6 +264,7 @@ import wordIcon from '@/assets/images/word.svg';
 import { useStylishStore } from '@/stores/stylish';
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import SwiperComponent from '@/components/SwiperComponent.vue';
 
 const router = useRouter();
 
