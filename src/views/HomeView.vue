@@ -18,7 +18,7 @@
               欢迎访问我的小红书主页:<a
                 href="https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9"
                 class="text-pink-600"
-                >不正经教英语的Toly</a
+                >外企大表哥学英文</a
               >，查看更多学习视频。
             </p>
             <div class="flex gap-5 flex-col lg:flex-row items-center lg:items-baseline">
