@@ -15,7 +15,8 @@
             </p>
             <p class="my-2">学习英语的唯一捷径就是：不断重复，不断打磨，不断进步！</p>
             <p class="mb-2">
-              欢迎访问我的小红书主页:<a
+              欢迎访问我的小红书主页:
+              <a
                 href="https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9"
                 class="text-pink-600"
                 >外企大表哥学英文</a

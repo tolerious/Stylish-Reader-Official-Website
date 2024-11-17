@@ -25,18 +25,11 @@
 </template>
 
 <script setup lang="ts">
-import { articleToken, youtubeVideos } from '@/constants';
+import { articleToken } from '@/constants';
 import { httpRequest } from '@/utils/requestUtils';
 import { onMounted } from 'vue';
-import type { Video } from '@/types';
-import type { Ref } from 'vue';
-import { ref } from 'vue';
 
-const videos: Ref<Video[]> = ref([]);
-
-onMounted(() => {
-  getVideos();
-});
+onMounted(() => {});
 
 function navigateReciteWord() {
   window.open('https://app.stylishreader.com');
@@ -45,13 +38,7 @@ function navigateReciteWord() {
 async function convertVideoHandler() {
   const t = await httpRequest.get(articleToken);
   if (t.data.code === 200) {
-    getVideos();
     alert('视频转换成功');
   }
-}
-
-async function getVideos() {
-  const r = await httpRequest.get(youtubeVideos);
-  videos.value = r.data.data;
 }
 </script>

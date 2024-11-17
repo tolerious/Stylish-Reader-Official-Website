@@ -16,9 +16,13 @@ import { youtubeVideos } from '@/constants';
 import type { Video } from '@/types';
 import { httpRequest } from '@/utils/requestUtils';
 import type { Ref } from 'vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const videos: Ref<Video[]> = ref([]);
+
+onMounted(() => {
+  getVideos();
+});
 
 function handleTransformed() {
   getVideos();

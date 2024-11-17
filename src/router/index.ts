@@ -41,8 +41,6 @@ const router = createRouter({
 });
 
 router.beforeEach((guard) => {
-  console.log(guard);
-  console.log(guard.name);
   if (guard.name && typeof guard.name === 'string') {
     document.title = guard.name;
   }
