@@ -53,7 +53,6 @@
         </div>
         <div class="lg:w-2/4">
           <swiper-component></swiper-component>
-          <!-- <img src="@/assets/images/about-right.webp" alt="" /> -->
         </div>
       </div>
       <div
@@ -82,10 +81,8 @@
             <h3 class="text-3xl font-medium text-gray-900 leading-relaxed">
               Stylish Reader 提供这些功能
             </h3>
-            <p class="my-3">
-              通过熟练运用工具中具备的功能，你的英语能力会不断提高，乃至超出你的想象。
-            </p>
-            <ul class="self-start list-inside flex flex-col gap-1">
+
+            <ul class="self-start list-inside flex flex-col gap-1 mt-4 text-lg">
               <li>1. 浏览器插件提供划词翻译，并收藏单词、短语的功能。</li>
               <li>2. 收藏过的单词、短语可以在网站上进行随时复习。</li>
               <li>3. 收藏YouTube视频到个人中心，同时查看中英双语字幕。</li>
@@ -93,8 +90,11 @@
               <li>5. 同时支持手机端、电脑端、pad端进行学习。</li>
             </ul>
             <div class="mt-2">
-              使用方法可参考<a class="underline text-pink-600" href="https://doc.stylishreader.com/"
-                >此处文档</a
+              详情可以观看<a
+                class="underline text-pink-600"
+                href="https://www.xiaohongshu.com/explore/6703d5bc000000001b02392a?xsec_token=ABn_v7DVfmpBb9KrkcrtopO9LfRMAzlDpBV0i2OLl2C30=&xsec_source=pc_user"
+              >
+                此处视频</a
               >。
             </div>
           </div>
