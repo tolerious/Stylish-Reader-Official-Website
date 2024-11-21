@@ -18,9 +18,17 @@
         </button>
       </div> -->
       <div
-        class="border-b-pink-500 border-b-[1px] border-dashed h-10 flex items-center justify-around"
+        class="border-b-slate-200 border-b-[1px] h-12 flex items-center justify-around cursor-not-allowed"
       >
         <span>Toly 您好！</span>
+      </div>
+      <div
+        @click="handleCatalogClick(catalog)"
+        v-for="catalog in catalogList"
+        :key="catalog.title"
+        class="border-b-slate-200 border-b-[1px] h-12 flex items-center justify-around cursor-pointer hover:bg-pink-500 hover:text-white"
+      >
+        <span>{{ catalog.title }}</span>
       </div>
     </div>
     <div class="flex flex-col items-center bg- py-2 max-h-full overflow-scroll">
@@ -32,7 +40,21 @@
 <script setup lang="ts">
 import { articleToken } from '@/constants';
 import { httpRequest } from '@/utils/requestUtils';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const catalogList = ref([
+  {
+    title: 'Youtube视频学习',
+    route: '/center/index'
+  },
+  {
+    title: '商务英语学习',
+    route: '/center/business'
+  }
+]);
 
 onMounted(() => {});
 
@@ -45,5 +67,9 @@ async function convertVideoHandler() {
   if (t.data.code === 200) {
     alert('视频转换成功');
   }
+}
+
+function handleCatalogClick(catalog: any) {
+  router.push(catalog.route);
 }
 </script>

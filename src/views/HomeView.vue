@@ -24,7 +24,7 @@
             </p>
             <div class="flex gap-5 flex-col lg:flex-row items-center lg:items-baseline">
               <button
-                @click="router.push('/center')"
+                @click="router.push('/center/index')"
                 class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-40 hover:animate-none"
               >
                 开始学习

@@ -15,9 +15,14 @@ const router = createRouter({
       component: () => import('@/views/PersonalCenterView.vue'),
       children: [
         {
-          path: '',
+          path: 'index',
           name: '个人中心',
           component: () => import('@/views/personalCenter/personalCenterIndex.vue')
+        },
+        {
+          path: 'business',
+          name: '商务英语',
+          component: () => import('@/views/personalCenter/personalCenterBusinessEnglish.vue')
         }
       ]
     },
