@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    { path: '/test', name: 'Test', component: () => import('@/views/TestView.vue') },
     {
       path: '/',
       name: 'Stylish Reader',
@@ -11,7 +12,19 @@ const router = createRouter({
     {
       path: '/center',
       name: '个人中心',
-      component: () => import('@/views/PersonalCenterView.vue')
+      component: () => import('@/views/PersonalCenterView.vue'),
+      children: [
+        {
+          path: 'index',
+          name: '个人中心',
+          component: () => import('@/views/personalCenter/personalCenterIndex.vue')
+        },
+        {
+          path: 'business',
+          name: '商务英语',
+          component: () => import('@/views/personalCenter/personalCenterBusinessEnglish.vue')
+        }
+      ]
     },
     {
       path: '/youtuber/:youtubeId',
@@ -33,8 +46,6 @@ const router = createRouter({
 });
 
 router.beforeEach((guard) => {
-  console.log(guard);
-  console.log(guard.name);
   if (guard.name && typeof guard.name === 'string') {
     document.title = guard.name;
   }

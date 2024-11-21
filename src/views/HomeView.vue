@@ -6,7 +6,7 @@
         <div class="lg:w-2/4">
           <div class="h-full flex flex-col justify-around text-gray-900">
             <h1 class="text-3xl lg:text-3xl font-medium">
-              免费使用<strong>Stylish Reader</strong>更加快速，高效的学习，掌握英语技能。
+              免费使用<strong>Stylish Reader</strong>更加快速，高效的提升英语技能
             </h1>
             <p class="mt-2">
               提供功能齐全的英语学习工具，包括
@@ -15,15 +15,16 @@
             </p>
             <p class="my-2">学习英语的唯一捷径就是：不断重复，不断打磨，不断进步！</p>
             <p class="mb-2">
-              欢迎访问我的小红书主页:<a
+              欢迎访问我的小红书主页:
+              <a
                 href="https://www.xiaohongshu.com/user/profile/55708c2ca75c956f6a881bc9"
                 class="text-pink-600"
-                >不正经教英语的Toly</a
-              >，查看更多视频。
+                >外企大表哥学英文</a
+              >，查看更多学习视频。
             </p>
             <div class="flex gap-5 flex-col lg:flex-row items-center lg:items-baseline">
               <button
-                @click="router.push('/center')"
+                @click="router.push('/center/index')"
                 class="bg-pink-600 px-8 py-3 text-white rounded-md active:shadow-sm active:shadow-pink-800 w-40 hover:animate-none"
               >
                 开始学习
@@ -50,7 +51,9 @@
             </div>
           </div>
         </div>
-        <div class="lg:w-2/4"><img src="@/assets/images/about-right.webp" alt="" /></div>
+        <div class="lg:w-2/4">
+          <swiper-component></swiper-component>
+        </div>
       </div>
       <div
         class="grid lg:grid-cols-3 grid-cols-1 lg:grid-rows-1 grid-rows-3 py-2 lg:px-8 lg:py-16 lg:bg-slate-50 lg:mt-5 mt-3"
@@ -78,10 +81,8 @@
             <h3 class="text-3xl font-medium text-gray-900 leading-relaxed">
               Stylish Reader 提供这些功能
             </h3>
-            <p class="my-3">
-              通过熟练运用工具中具备的功能，你的英语能力会不断提高，乃至超出你的想象。
-            </p>
-            <ul class="self-start list-inside flex flex-col gap-1">
+
+            <ul class="self-start list-inside flex flex-col gap-1 mt-4 text-lg">
               <li>1. 浏览器插件提供划词翻译，并收藏单词、短语的功能。</li>
               <li>2. 收藏过的单词、短语可以在网站上进行随时复习。</li>
               <li>3. 收藏YouTube视频到个人中心，同时查看中英双语字幕。</li>
@@ -89,8 +90,11 @@
               <li>5. 同时支持手机端、电脑端、pad端进行学习。</li>
             </ul>
             <div class="mt-2">
-              使用方法可参考<a class="underline text-pink-600" href="https://doc.stylishreader.com/"
-                >此处文档</a
+              详情可以观看<a
+                class="underline text-pink-600"
+                href="https://www.xiaohongshu.com/explore/6703d5bc000000001b02392a?xsec_token=ABn_v7DVfmpBb9KrkcrtopO9LfRMAzlDpBV0i2OLl2C30=&xsec_source=pc_user"
+              >
+                此处视频</a
               >。
             </div>
           </div>
@@ -261,6 +265,7 @@ import wordIcon from '@/assets/images/word.svg';
 import { useStylishStore } from '@/stores/stylish';
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import SwiperComponent from '@/components/SwiperComponent.vue';
 
 const router = useRouter();
 

@@ -16,7 +16,7 @@ import HeaderComponent from './components/HeaderComponent.vue';
 const router = useRouter();
 const isHeaderFooterVisible = computed(() => {
   const routerName = router.currentRoute.value.name ?? '';
-  return !['YouTube 视频', 'login', '导出PDF'].includes(routerName as string);
+  return !['YouTube 视频', 'login', '导出PDF', 'Test'].includes(routerName as string);
 });
 </script>
 

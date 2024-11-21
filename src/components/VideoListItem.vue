@@ -43,7 +43,6 @@ const emit = defineEmits(['delete', 'transformed']);
 
 async function transformVideo(id: string) {
   const r = await httpRequest.post('/articletoken/', { articleId: id });
-  console.log(r.data);
   if (r.data.code === 200) {
     emit('transformed');
     alert('转换成功');
