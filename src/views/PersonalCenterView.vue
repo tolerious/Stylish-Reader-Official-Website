@@ -26,6 +26,7 @@
         @click="handleCatalogClick(catalog)"
         v-for="catalog in catalogList"
         :key="catalog.title"
+        :class="{ 'bg-pink-500 text-white': catalog.active }"
         class="border-b-slate-200 border-b-[1px] h-12 flex items-center justify-around cursor-pointer hover:bg-pink-500 hover:text-white"
       >
         <span>{{ catalog.title }}</span>
@@ -48,11 +49,13 @@ const router = useRouter();
 const catalogList = ref([
   {
     title: 'Youtube视频学习',
-    route: '/center/index'
+    route: '/center/index',
+    active: true
   },
   {
     title: '商务英语学习',
-    route: '/center/business'
+    route: '/center/business',
+    active: false
   }
 ]);
 
@@ -70,6 +73,13 @@ async function convertVideoHandler() {
 }
 
 function handleCatalogClick(catalog: any) {
+  catalogList.value.forEach((item) => {
+    if (catalog.title === item.title) {
+      item.active = true;
+    } else {
+      item.active = false;
+    }
+  });
   router.push(catalog.route);
 }
 </script>
