@@ -243,7 +243,7 @@
     </div>
   </div>
   <div
-    class="fixed text-center top-1/4 left-[10%] lg:h-[50%] lg:w-[50%] w-[80%] bg-slate-50 border-slate-300 border-[1px] rounded-md"
+    class="fixed text-center top-1/4 left-[10%] lg:h-[50%] h-[50%] lg:w-[50%] w-[80%] bg-slate-50 border-slate-300 border-[1px] rounded-md"
     v-if="isSponsorDialogVisible"
   >
     <img class="h-[80%] mx-auto my-auto" src="@/assets/images/sponsor.jpg" alt="" srcset="" />
