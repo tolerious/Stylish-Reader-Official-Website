@@ -138,23 +138,25 @@
             v-model="currentSubtitleType"
             name=""
             id=""
-            class="p-[0.5px] bg-black cursor-pointer"
+            class="p-[0.5px] bg-black cursor-pointer hover:text-pink-400"
             @change="handleSwitchSubtitle"
           >
-            <option value="bilingual">双语字幕</option>
-            <option value="chinese">中文字幕</option>
-            <option value="english">英文字幕</option>
+            <option value="bilingual" class="text-slate-400">双语字幕</option>
+            <option value="chinese" class="text-slate-400">中文字幕</option>
+            <option value="english" class="text-slate-400">英文字幕</option>
           </select>
         </div>
         <div class="flex justify-center items-center">
-          <span @click="seekBack" class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+          <span
+            @click="seekBack"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
             >后退10s</span
           >
         </div>
         <div class="flex justify-center items-center">
           <span
             @click="playPauseVideo"
-            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
             v-if="
               [PlayerState.NotStarted, PlayerState.Paused, PlayerState.Ended].includes(
                 currentPlayerState
@@ -165,21 +167,21 @@
           <span
             v-else
             @click="playPauseVideo"
-            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
             >暂停</span
           >
         </div>
         <div class="flex justify-center items-center">
           <span
             @click="seekAhead"
-            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
             >前进10s</span
           >
         </div>
         <div class="flex justify-center items-center">
           <span
             @click="generatePdfHandler"
-            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
             >字幕导出</span
           >
         </div>
