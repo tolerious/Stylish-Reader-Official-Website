@@ -10,12 +10,12 @@
         <div
           class="text-zinc-400 pt-3 text-center lg:grid grid-cols-1 grid-rows-2 items-center hidden"
         >
-          <div class="text-2xl text-amber-400">
+          <div class="text-2xl text-amber-400" v-if="isEnglishTranscriptVisible">
             <div v-for="transcript in currentEnTranscriptText" :key="transcript">
               {{ transcript }}
             </div>
           </div>
-          <div class="text-lg">{{ currentZhTranscriptText }}</div>
+          <div class="text-lg" v-if="isChineseTranscriptVisible">{{ currentZhTranscriptText }}</div>
         </div>
       </div>
     </div>
@@ -24,7 +24,11 @@
       <div in-coincide-transcript class="row-span-2 lg:row-span-1 col-span-1 overflow-y-hidden">
         <div
           class="overflow-y-hidden grid h-full"
-          :class="[isChineseTranscriptVisible ? 'grid-rows-[50%_50%]' : 'grid-rows-1']"
+          :class="[
+            isChineseTranscriptVisible && isEnglishTranscriptVisible
+              ? 'grid-rows-[50%_50%]'
+              : 'grid-rows-1'
+          ]"
           v-if="playerIsReady"
         >
           <!-- 英文显示区域 -->
@@ -92,7 +96,9 @@
           class="mb-3 text-wrap"
           :class="[shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500']"
         >
-          <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
+          <template v-if="isEnglishTranscriptVisible">
+            <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
+          </template>
           <div v-if="isChineseTranscriptVisible">
             {{ zhTranscriptData[getEnTranscriptIndex(_)].segs.map((seg) => seg.utf8).join('') }}
           </div>
@@ -109,13 +115,26 @@
       tool-bar
       class="lg:row-span-1 lg:col-span-2 lg:h-12 h-12 border-t-gray-700 border-t-[0.5px] text-slate-400"
     >
-      <div class="h-full lg:w-1/2 m-auto grid grid-rows-1 grid-cols-5">
+      <div class="float-start h-full cursor-pointer flex items-center" @click="goHome">
+        <span class="pl-1">返回</span>
+      </div>
+      <div class="h-full lg:w-1/2 m-auto grid grid-rows-1 grid-cols-6">
         <div class="flex justify-center items-center">
-          <span @click="switchChineseTranscriptHandler" class="h-6 cursor-pointer">中文字幕</span>
+          <select
+            v-model="currentSubtitleType"
+            name=""
+            id=""
+            class="p-[0.5px] bg-black cursor-pointer"
+            @change="handleSwitchSubtitle"
+          >
+            <option value="bilingual">双语字幕</option>
+            <option value="chinese">中文字幕</option>
+            <option value="english">英文字幕</option>
+          </select>
         </div>
         <div class="flex justify-center items-center">
           <span @click="seekBack" class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
-            >后退</span
+            >后退10s</span
           >
         </div>
         <div class="flex justify-center items-center">
@@ -140,7 +159,7 @@
           <span
             @click="seekAhead"
             class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
-            >前进</span
+            >前进10s</span
           >
         </div>
         <div class="flex justify-center items-center">
@@ -175,6 +194,8 @@ const isTranscriptConsistent = ref(false);
 const currentTime = ref(0);
 const currentPlayerState = ref(PlayerState.NotStarted);
 const isChineseTranscriptVisible = ref(true);
+const isEnglishTranscriptVisible = ref(true);
+const currentSubtitleType = ref('bilingual');
 
 const currentEnTranscriptText = computed(() => {
   if (enTranscriptData.value !== null) {
@@ -220,8 +241,28 @@ const currentZhTranscriptText = computed(() => {
   }
 });
 
-function switchChineseTranscriptHandler() {
-  isChineseTranscriptVisible.value = !isChineseTranscriptVisible.value;
+function goHome() {
+  router.push('/center/index');
+}
+
+function handleSwitchSubtitle() {
+  console.log(currentSubtitleType.value);
+  switch (currentSubtitleType.value) {
+    case 'bilingual':
+      isChineseTranscriptVisible.value = true;
+      isEnglishTranscriptVisible.value = true;
+      break;
+    case 'chinese':
+      isChineseTranscriptVisible.value = true;
+      isEnglishTranscriptVisible.value = false;
+      break;
+    case 'english':
+      isChineseTranscriptVisible.value = false;
+      isEnglishTranscriptVisible.value = true;
+      break;
+    default:
+      break;
+  }
 }
 
 function generatePdfHandler() {
