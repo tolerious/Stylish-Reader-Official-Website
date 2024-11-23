@@ -38,16 +38,17 @@
               v-if="playerIsReady"
               style="height: 100%; max-height: 100%"
             >
-              <div
-                v-for="[_, enData] in enTranscriptData"
-                :key="_"
-                class="lg:mb-3 mb-1"
-                :class="[
-                  shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
-                ]"
-              >
-                <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
-              </div>
+              <template v-for="[_, enData] in enTranscriptData" :key="_">
+                <div
+                  v-if="enData.segs.filter((seg) => seg.text !== '').length > 0"
+                  class="mb-1"
+                  :class="[
+                    shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
+                  ]"
+                >
+                  <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
+                </div>
+              </template>
             </div>
           </div>
           <!-- 中文显示区域 -->
@@ -99,11 +100,11 @@
           <template v-if="isEnglishTranscriptVisible">
             <div class="flex">
               <div
-                style="width: 25px"
+                style="width: 25px; min-width: 25px"
                 class="flex items-start mt-[5px] cursor-pointer"
                 @click="goToCertainTime(_)"
               >
-                <img src="/images/play-small-button.svg" alt="" style="height: 20px" />
+                <img src="/images/play-small-button.svg" alt="" style="height: 20px; width: 20px" />
               </div>
               <div>
                 <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
@@ -111,7 +112,7 @@
             </div>
           </template>
           <div v-if="isChineseTranscriptVisible" class="flex">
-            <div style="width: 25px"></div>
+            <div style="width: 25px; min-width: 25px"></div>
             <div>
               {{ zhTranscriptData[getEnTranscriptIndex(_)].segs.map((seg) => seg.utf8).join('') }}
             </div>
