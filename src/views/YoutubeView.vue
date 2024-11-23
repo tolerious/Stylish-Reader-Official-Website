@@ -97,10 +97,24 @@
           :class="[shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500']"
         >
           <template v-if="isEnglishTranscriptVisible">
-            <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
+            <div class="flex">
+              <div
+                style="width: 25px"
+                class="flex items-start mt-[5px] cursor-pointer"
+                @click="goToCertainTime(_)"
+              >
+                <img src="/images/play-small-button.svg" alt="" style="height: 20px" />
+              </div>
+              <div>
+                <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
+              </div>
+            </div>
           </template>
-          <div v-if="isChineseTranscriptVisible">
-            {{ zhTranscriptData[getEnTranscriptIndex(_)].segs.map((seg) => seg.utf8).join('') }}
+          <div v-if="isChineseTranscriptVisible" class="flex">
+            <div style="width: 25px"></div>
+            <div>
+              {{ zhTranscriptData[getEnTranscriptIndex(_)].segs.map((seg) => seg.utf8).join('') }}
+            </div>
           </div>
         </div>
       </div>
@@ -241,12 +255,16 @@ const currentZhTranscriptText = computed(() => {
   }
 });
 
+function goToCertainTime(item: any) {
+  const startTime = item.split('-')[0];
+  player.value?.seekTo(startTime / 1000, true);
+}
+
 function goHome() {
   router.push('/center/index');
 }
 
 function handleSwitchSubtitle() {
-  console.log(currentSubtitleType.value);
   switch (currentSubtitleType.value) {
     case 'bilingual':
       isChineseTranscriptVisible.value = true;
