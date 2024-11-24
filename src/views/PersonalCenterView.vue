@@ -32,7 +32,7 @@
         <span>{{ catalog.title }}</span>
       </div>
     </div>
-    <div class="flex flex-col items-center bg- py-2 max-h-full overflow-scroll">
+    <div class="flex flex-col items-center bg- p-2 max-h-full overflow-scroll">
       <RouterView />
     </div>
   </div>
@@ -42,24 +42,35 @@
 import { articleToken } from '@/constants';
 import { httpRequest } from '@/utils/requestUtils';
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
 
+const route = useRoute();
+
 const catalogList = ref([
   {
-    title: 'Youtube视频学习',
+    title: 'Youtube视频',
     route: '/center/index',
     active: true
   },
   {
-    title: '商务英语学习',
+    title: '商务英语',
     route: '/center/business',
     active: false
   }
 ]);
 
-onMounted(() => {});
+onMounted(() => {
+  console.log(route.path);
+  catalogList.value.forEach((catalog, index) => {
+    if (catalog.route === route.path) {
+      catalogList.value[index].active = true;
+    } else {
+      catalogList.value[index].active = false;
+    }
+  });
+});
 
 function navigateReciteWord() {
   window.open('https://app.stylishreader.com');
