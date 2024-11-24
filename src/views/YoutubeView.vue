@@ -1,16 +1,21 @@
 <template>
   <div
+    @click="isStylishReaderShowUp"
     class="grid lg:grid-rows-[1fr_auto] lg:grid-cols-[70%_1fr] grid-cols-1 grid-rows-[40%_1fr_1fr_3rem] h-full bg-black"
   >
     <div video-container class="lg:row-span-1 lg:col-span-1 h-full">
       <div class="lg:h-full w-full grid lg:grid-cols-1 lg:grid-rows-[80%_1fr] h-full">
+        <!-- 播放器区域 -->
         <div class="mx-auto my-0 mt-1 h-full w-full flex flex-row justify-center">
           <div id="player"></div>
         </div>
+        <!-- 中英文当前字幕显示区域 -->
         <div
+          @mouseover="handleCurrentTranscriptMouseOver"
+          @mouseleave="handleCurrentTranscriptMouseLeave"
           class="text-zinc-400 pt-3 text-center lg:grid grid-cols-1 grid-rows-2 items-center hidden"
         >
-          <div class="text-2xl text-amber-400" v-if="isEnglishTranscriptVisible">
+          <div class="text-2xl text-amber-400 cursor-pointer" v-if="isEnglishTranscriptVisible">
             <div v-for="transcript in currentEnTranscriptText" :key="transcript">
               {{ transcript }}
             </div>
@@ -183,7 +188,7 @@
           >
           <span
             v-else
-            @click="playPauseVideo"
+            @click.stop="playPauseVideo"
             class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
             >暂停</span
           >
@@ -209,7 +214,7 @@
 
 <script setup lang="ts">
 import { PlayerState, type ArticleToken, type Segment, type Transcript } from '@/types';
-import { computed, onMounted, ref, type Ref } from 'vue';
+import { computed, onMounted, ref, watch, type Ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
 import jsPDF from 'jspdf';
@@ -229,6 +234,7 @@ const currentPlayerState = ref(PlayerState.NotStarted);
 const isChineseTranscriptVisible = ref(true);
 const isEnglishTranscriptVisible = ref(true);
 const currentSubtitleType = ref('bilingual');
+const isMouseOver = ref(false);
 
 const currentEnTranscriptText = computed(() => {
   if (enTranscriptData.value !== null) {
@@ -273,6 +279,32 @@ const currentZhTranscriptText = computed(() => {
     return '';
   }
 });
+
+watch(isMouseOver, (value) => {
+  if (!value && isStylishReaderShowUp() !== 'block') {
+    player.value?.playVideo();
+  }
+});
+
+function isStylishReaderShowUp() {
+  const floatingPanel = document.getElementById('stylish-reader-translation-panel-shadow-root');
+  if (floatingPanel?.style.display === 'none' && !isMouseOver.value) {
+    player.value?.playVideo();
+  }
+  return floatingPanel?.style.display;
+}
+
+function handleCurrentTranscriptMouseLeave() {
+  isMouseOver.value = false;
+  // if (isStylishReaderShowUp() !== 'block') {
+  //   player.value?.playVideo();
+  // }
+}
+
+function handleCurrentTranscriptMouseOver() {
+  isMouseOver.value = true;
+  player.value?.pauseVideo();
+}
 
 function goToCertainTime(item: any) {
   const startTime = item.split('-')[0];
