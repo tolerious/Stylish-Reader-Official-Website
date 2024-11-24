@@ -39,15 +39,31 @@
               style="height: 100%; max-height: 100%"
             >
               <template v-for="[_, enData] in enTranscriptData" :key="_">
-                <div
-                  v-if="enData.segs.filter((seg) => seg.text !== '').length > 0"
-                  class="mb-1"
-                  :class="[
-                    shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
-                  ]"
-                >
-                  <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
-                </div>
+                <template v-if="enData.segs.filter((seg) => seg.text !== '').length > 0">
+                  <div class="flex">
+                    <div
+                      class="flex items-start mt-[5px] cursor-pointer"
+                      style="width: 25px; min-width: 25px"
+                      @click="goToCertainTime(_)"
+                    >
+                      <img
+                        src="/images/play-small-button.svg"
+                        alt=""
+                        style="height: 20px; width: 20px"
+                      />
+                    </div>
+                    <div
+                      class="mb-1"
+                      :class="[
+                        shouldHightLightEnText(_)
+                          ? ['text-amber-400', 'highlight']
+                          : 'text-stone-500'
+                      ]"
+                    >
+                      <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
+                    </div>
+                  </div>
+                </template>
               </template>
             </div>
           </div>
