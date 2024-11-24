@@ -8,10 +8,12 @@
       :key="video._id"
     ></video-list-item>
   </div>
+  <loading-component></loading-component>
 </template>
 
 <script setup lang="ts">
 import VideoListItem from '@/components/VideoListItem.vue';
+import LoadingComponent from '@/components/LoadingComponent.vue';
 import { youtubeVideos } from '@/constants';
 import type { Video } from '@/types';
 import { httpRequest } from '@/utils/requestUtils';
