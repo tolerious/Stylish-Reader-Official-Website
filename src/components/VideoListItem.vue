@@ -25,15 +25,18 @@
       </button>
     </div>
   </div>
+  <loading-component :visible="loadingVisible"></loading-component>
 </template>
 
 <script setup lang="ts">
 import { type Video } from '@/types';
 import { httpRequest } from '@/utils/requestUtils';
-import type { PropType } from 'vue';
+import { ref, type PropType } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+
+const loadingVisible = ref(false);
 
 const props = defineProps({
   video: { type: Object as PropType<Video>, required: true }
@@ -43,11 +46,14 @@ const emit = defineEmits(['delete', 'transformed']);
 
 async function transformVideo(id: string) {
   const r = await httpRequest.post('/articletoken/', { articleId: id });
+  loadingVisible.value = true;
   if (r.data.code === 200) {
     emit('transformed');
     alert('转换成功');
+    loadingVisible.value = false;
   } else {
     alert('转换失败');
+    loadingVisible.value = false;
   }
 }
 

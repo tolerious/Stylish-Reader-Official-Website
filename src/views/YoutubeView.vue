@@ -1,21 +1,26 @@
 <template>
   <div
+    @click="isStylishReaderShowUp"
     class="grid lg:grid-rows-[1fr_auto] lg:grid-cols-[70%_1fr] grid-cols-1 grid-rows-[40%_1fr_1fr_3rem] h-full bg-black"
   >
     <div video-container class="lg:row-span-1 lg:col-span-1 h-full">
       <div class="lg:h-full w-full grid lg:grid-cols-1 lg:grid-rows-[80%_1fr] h-full">
+        <!-- 播放器区域 -->
         <div class="mx-auto my-0 mt-1 h-full w-full flex flex-row justify-center">
           <div id="player"></div>
         </div>
+        <!-- 中英文当前字幕显示区域 -->
         <div
+          @mouseover="handleCurrentTranscriptMouseOver"
+          @mouseleave="handleCurrentTranscriptMouseLeave"
           class="text-zinc-400 pt-3 text-center lg:grid grid-cols-1 grid-rows-2 items-center hidden"
         >
-          <div class="text-2xl text-amber-400">
+          <div class="text-2xl text-amber-400 cursor-pointer" v-if="isEnglishTranscriptVisible">
             <div v-for="transcript in currentEnTranscriptText" :key="transcript">
               {{ transcript }}
             </div>
           </div>
-          <div class="text-lg">{{ currentZhTranscriptText }}</div>
+          <div class="text-lg" v-if="isChineseTranscriptVisible">{{ currentZhTranscriptText }}</div>
         </div>
       </div>
     </div>
@@ -24,7 +29,11 @@
       <div in-coincide-transcript class="row-span-2 lg:row-span-1 col-span-1 overflow-y-hidden">
         <div
           class="overflow-y-hidden grid h-full"
-          :class="[isChineseTranscriptVisible ? 'grid-rows-[50%_50%]' : 'grid-rows-1']"
+          :class="[
+            isChineseTranscriptVisible && isEnglishTranscriptVisible
+              ? 'grid-rows-[50%_50%]'
+              : 'grid-rows-1'
+          ]"
           v-if="playerIsReady"
         >
           <!-- 英文显示区域 -->
@@ -34,16 +43,33 @@
               v-if="playerIsReady"
               style="height: 100%; max-height: 100%"
             >
-              <div
-                v-for="[_, enData] in enTranscriptData"
-                :key="_"
-                class="lg:mb-3 mb-1"
-                :class="[
-                  shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500'
-                ]"
-              >
-                <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
-              </div>
+              <template v-for="[_, enData] in enTranscriptData" :key="_">
+                <template v-if="enData.segs.filter((seg) => seg.text !== '').length > 0">
+                  <div class="flex">
+                    <div
+                      class="flex items-start mt-[5px] cursor-pointer"
+                      style="width: 25px; min-width: 25px"
+                      @click="goToCertainTime(_)"
+                    >
+                      <img
+                        src="/images/play-small-button.svg"
+                        alt=""
+                        style="height: 20px; width: 20px"
+                      />
+                    </div>
+                    <div
+                      class="mb-1"
+                      :class="[
+                        shouldHightLightEnText(_)
+                          ? ['text-amber-400', 'highlight']
+                          : 'text-stone-500'
+                      ]"
+                    >
+                      <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
+                    </div>
+                  </div>
+                </template>
+              </template>
             </div>
           </div>
           <!-- 中文显示区域 -->
@@ -92,9 +118,25 @@
           class="mb-3 text-wrap"
           :class="[shouldHightLightEnText(_) ? ['text-amber-400', 'highlight'] : 'text-stone-500']"
         >
-          <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
-          <div v-if="isChineseTranscriptVisible">
-            {{ zhTranscriptData[getEnTranscriptIndex(_)].segs.map((seg) => seg.utf8).join('') }}
+          <template v-if="isEnglishTranscriptVisible">
+            <div class="flex">
+              <div
+                style="width: 25px; min-width: 25px"
+                class="flex items-start mt-[5px] cursor-pointer"
+                @click="goToCertainTime(_)"
+              >
+                <img src="/images/play-small-button.svg" alt="" style="height: 20px; width: 20px" />
+              </div>
+              <div>
+                <span v-for="seg in enData.segs" :key="seg._id">{{ seg.text }} {{}}</span>
+              </div>
+            </div>
+          </template>
+          <div v-if="isChineseTranscriptVisible" class="flex">
+            <div style="width: 25px; min-width: 25px"></div>
+            <div>
+              {{ zhTranscriptData[getEnTranscriptIndex(_)].segs.map((seg) => seg.utf8).join('') }}
+            </div>
           </div>
         </div>
       </div>
@@ -109,19 +151,44 @@
       tool-bar
       class="lg:row-span-1 lg:col-span-2 lg:h-12 h-12 border-t-gray-700 border-t-[0.5px] text-slate-400"
     >
-      <div class="h-full lg:w-1/2 m-auto grid grid-rows-1 grid-cols-5">
+      <div
+        class="hover:text-pink-400 float-start h-full cursor-pointer items-center hidden lg:flex"
+        @click="goHome"
+      >
+        <span class="pl-1">返回</span>
+      </div>
+      <div
+        class="h-full lg:w-1/2 m-auto grid grid-rows-1 lg:grid-cols-5 grid-cols-[1.5fr_1fr_1fr_1fr_1.5fr]"
+      >
         <div class="flex justify-center items-center">
-          <span @click="switchChineseTranscriptHandler" class="h-6 cursor-pointer">中文字幕</span>
+          <select
+            v-model="currentSubtitleType"
+            name=""
+            id=""
+            class="p-[0.5px] bg-black cursor-pointer hover:text-pink-400"
+            @change="handleSwitchSubtitle"
+          >
+            <option value="bilingual" class="text-slate-400">双语字幕</option>
+            <option value="chinese" class="text-slate-400">中文字幕</option>
+            <option value="english" class="text-slate-400">英文字幕</option>
+          </select>
         </div>
         <div class="flex justify-center items-center">
-          <span @click="seekBack" class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+          <span
+            @click="seekBack"
+            class="h-6 cursor-pointer hidden active:shadow-md active:shadow-pink-300 hover:text-pink-400 lg:block"
+            >后退10s</span
+          >
+          <span
+            @click="seekBack"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400 lg:hidden"
             >后退</span
           >
         </div>
         <div class="flex justify-center items-center">
           <span
             @click="playPauseVideo"
-            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
             v-if="
               [PlayerState.NotStarted, PlayerState.Paused, PlayerState.Ended].includes(
                 currentPlayerState
@@ -131,22 +198,27 @@
           >
           <span
             v-else
-            @click="playPauseVideo"
-            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            @click.stop="playPauseVideo"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
             >暂停</span
           >
         </div>
         <div class="flex justify-center items-center">
           <span
             @click="seekAhead"
-            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400 lg:block hidden"
+            >前进10s</span
+          >
+          <span
+            @click="seekAhead"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400 lg:hidden"
             >前进</span
           >
         </div>
         <div class="flex justify-center items-center">
           <span
             @click="generatePdfHandler"
-            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
             >字幕导出</span
           >
         </div>
@@ -157,7 +229,7 @@
 
 <script setup lang="ts">
 import { PlayerState, type ArticleToken, type Segment, type Transcript } from '@/types';
-import { computed, onMounted, ref, type Ref } from 'vue';
+import { computed, onMounted, ref, watch, type Ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { httpRequest } from '../utils/requestUtils';
 import jsPDF from 'jspdf';
@@ -175,6 +247,9 @@ const isTranscriptConsistent = ref(false);
 const currentTime = ref(0);
 const currentPlayerState = ref(PlayerState.NotStarted);
 const isChineseTranscriptVisible = ref(true);
+const isEnglishTranscriptVisible = ref(true);
+const currentSubtitleType = ref('bilingual');
+const isMouseOver = ref(false);
 
 const currentEnTranscriptText = computed(() => {
   if (enTranscriptData.value !== null) {
@@ -220,8 +295,58 @@ const currentZhTranscriptText = computed(() => {
   }
 });
 
-function switchChineseTranscriptHandler() {
-  isChineseTranscriptVisible.value = !isChineseTranscriptVisible.value;
+watch(isMouseOver, (value) => {
+  if (!value && isStylishReaderShowUp() !== 'block') {
+    player.value?.playVideo();
+  }
+});
+
+function isStylishReaderShowUp() {
+  const floatingPanel = document.getElementById('stylish-reader-translation-panel-shadow-root');
+  if (floatingPanel?.style.display === 'none' && !isMouseOver.value) {
+    player.value?.playVideo();
+  }
+  return floatingPanel?.style.display;
+}
+
+function handleCurrentTranscriptMouseLeave() {
+  isMouseOver.value = false;
+  // if (isStylishReaderShowUp() !== 'block') {
+  //   player.value?.playVideo();
+  // }
+}
+
+function handleCurrentTranscriptMouseOver() {
+  isMouseOver.value = true;
+  player.value?.pauseVideo();
+}
+
+function goToCertainTime(item: any) {
+  const startTime = item.split('-')[0];
+  player.value?.seekTo(startTime / 1000, true);
+}
+
+function goHome() {
+  router.push('/center/index');
+}
+
+function handleSwitchSubtitle() {
+  switch (currentSubtitleType.value) {
+    case 'bilingual':
+      isChineseTranscriptVisible.value = true;
+      isEnglishTranscriptVisible.value = true;
+      break;
+    case 'chinese':
+      isChineseTranscriptVisible.value = true;
+      isEnglishTranscriptVisible.value = false;
+      break;
+    case 'english':
+      isChineseTranscriptVisible.value = false;
+      isEnglishTranscriptVisible.value = true;
+      break;
+    default:
+      break;
+  }
 }
 
 function generatePdfHandler() {
