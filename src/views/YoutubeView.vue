@@ -151,10 +151,15 @@
       tool-bar
       class="lg:row-span-1 lg:col-span-2 lg:h-12 h-12 border-t-gray-700 border-t-[0.5px] text-slate-400"
     >
-      <div class="float-start h-full cursor-pointer flex items-center" @click="goHome">
+      <div
+        class="hover:text-pink-400 float-start h-full cursor-pointer items-center hidden lg:flex"
+        @click="goHome"
+      >
         <span class="pl-1">返回</span>
       </div>
-      <div class="h-full lg:w-1/2 m-auto grid grid-rows-1 grid-cols-6">
+      <div
+        class="h-full lg:w-1/2 m-auto grid grid-rows-1 lg:grid-cols-5 grid-cols-[1.5fr_1fr_1fr_1fr_1.5fr]"
+      >
         <div class="flex justify-center items-center">
           <select
             v-model="currentSubtitleType"
@@ -171,8 +176,13 @@
         <div class="flex justify-center items-center">
           <span
             @click="seekBack"
-            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
+            class="h-6 cursor-pointer hidden active:shadow-md active:shadow-pink-300 hover:text-pink-400 lg:block"
             >后退10s</span
+          >
+          <span
+            @click="seekBack"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400 lg:hidden"
+            >后退</span
           >
         </div>
         <div class="flex justify-center items-center">
@@ -196,8 +206,13 @@
         <div class="flex justify-center items-center">
           <span
             @click="seekAhead"
-            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400 lg:block hidden"
             >前进10s</span
+          >
+          <span
+            @click="seekAhead"
+            class="h-6 cursor-pointer active:shadow-md active:shadow-pink-300 hover:text-pink-400 lg:hidden"
+            >前进</span
           >
         </div>
         <div class="flex justify-center items-center">

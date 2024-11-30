@@ -8,12 +8,12 @@
       :key="video._id"
     ></video-list-item>
   </div>
-  <loading-component></loading-component>
+  <loading-component :visible="loadingVisible"></loading-component>
 </template>
 
 <script setup lang="ts">
-import VideoListItem from '@/components/VideoListItem.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
+import VideoListItem from '@/components/VideoListItem.vue';
 import { youtubeVideos } from '@/constants';
 import type { Video } from '@/types';
 import { httpRequest } from '@/utils/requestUtils';
@@ -22,8 +22,12 @@ import { onMounted, ref } from 'vue';
 
 const videos: Ref<Video[]> = ref([]);
 
-onMounted(() => {
-  getVideos();
+const loadingVisible = ref(false);
+
+onMounted(async () => {
+  loadingVisible.value = true;
+  await getVideos();
+  loadingVisible.value = false;
 });
 
 function handleTransformed() {
