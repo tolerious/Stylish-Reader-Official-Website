@@ -10,13 +10,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { RouterView, useRouter } from 'vue-router';
+import { RouterView, useRoute } from 'vue-router';
 import FooterComponent from './components/FooterComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
-const router = useRouter();
+const route = useRoute();
 const isHeaderFooterVisible = computed(() => {
-  const routerName = router.currentRoute.value.name ?? '';
-  return !['YouTube 视频', 'login', '导出PDF', 'Test'].includes(routerName as string);
+  return !!route.meta.showHeader;
 });
 </script>
 
