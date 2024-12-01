@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Stylish Reader',
-      meta: { showHeader: true },
+      meta: { showHeader: true, title: 'Stylish Reader | 首页' },
       component: () => import('@/views/HomeView.vue')
     },
     {
@@ -18,13 +18,13 @@ const router = createRouter({
         {
           path: 'index',
           name: '个人中心',
-          meta: { showHeader: true },
+          meta: { showHeader: true, title: '个人中心' },
           component: () => import('@/views/personalCenter/personalCenterIndex.vue')
         },
         {
           path: 'business',
           name: '商务英语',
-          meta: { showHeader: true },
+          meta: { showHeader: true, title: '商务英语' },
           component: () => import('@/views/personalCenter/personalCenterBusinessEnglish.vue')
         }
       ]
@@ -32,24 +32,25 @@ const router = createRouter({
     {
       path: '/english/:articleId',
       name: '商务英语学习',
-      meta: { showHeader: false },
+      meta: { showHeader: false, title: '商务英语学习' },
       component: () => import('@/views/personalCenter/businessEnglish.vue')
     },
     {
       path: '/youtuber/:youtubeId',
       name: 'YouTube 视频',
+      meta: { showHeader: false, title: 'YouTube 视频' },
       component: () => import('@/views/YoutubeView.vue')
     },
 
     {
       path: '/login',
       name: 'login',
-      meta: { showHeader: false },
+      meta: { showHeader: false, title: '登录' },
       component: () => import('@/views/LoginView.vue')
     },
     {
       path: '/pdf/:youtubeId',
-      meta: { showHeader: false },
+      meta: { showHeader: false, title: '导出PDF' },
       name: '导出PDF',
       component: () => import('@/views/ExportPdf.vue')
     }
@@ -57,8 +58,8 @@ const router = createRouter({
 });
 
 router.beforeEach((guard) => {
-  if (guard.name && typeof guard.name === 'string') {
-    document.title = guard.name;
+  if (guard.meta.title && typeof guard.meta.title === 'string') {
+    document.title = guard.meta.title;
   }
 });
 
