@@ -27,6 +27,11 @@ const router = createRouter({
       ]
     },
     {
+      path: '/english/:articleId',
+      name: '商务英语学习',
+      component: () => import('@/views/personalCenter/businessEnglish.vue')
+    },
+    {
       path: '/youtuber/:youtubeId',
       name: 'YouTube 视频',
       component: () => import('@/views/YoutubeView.vue')
