@@ -7,6 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Stylish Reader',
+      meta: { showHeader: true },
       component: () => import('@/views/HomeView.vue')
     },
     {
@@ -17,11 +18,13 @@ const router = createRouter({
         {
           path: 'index',
           name: '个人中心',
+          meta: { showHeader: true },
           component: () => import('@/views/personalCenter/personalCenterIndex.vue')
         },
         {
           path: 'business',
           name: '商务英语',
+          meta: { showHeader: true },
           component: () => import('@/views/personalCenter/personalCenterBusinessEnglish.vue')
         }
       ]
@@ -29,6 +32,7 @@ const router = createRouter({
     {
       path: '/english/:articleId',
       name: '商务英语学习',
+      meta: { showHeader: false },
       component: () => import('@/views/personalCenter/businessEnglish.vue')
     },
     {
@@ -36,14 +40,16 @@ const router = createRouter({
       name: 'YouTube 视频',
       component: () => import('@/views/YoutubeView.vue')
     },
+
     {
-      path: '/loading',
-      name: 'loading',
-      component: () => import('@/views/LoadingView.vue')
+      path: '/login',
+      name: 'login',
+      meta: { showHeader: false },
+      component: () => import('@/views/LoginView.vue')
     },
-    { path: '/login', name: 'login', component: () => import('@/views/LoginView.vue') },
     {
       path: '/pdf/:youtubeId',
+      meta: { showHeader: false },
       name: '导出PDF',
       component: () => import('@/views/ExportPdf.vue')
     }
