@@ -1,6 +1,6 @@
 <template>
   <div
-    @click="isStylishReaderShowUp"
+    @click="isStylishReaderShowUp" style="height: 100%;"
     class="grid lg:grid-rows-[1fr_auto] lg:grid-cols-[70%_1fr] grid-cols-1 grid-rows-[40%_1fr_1fr_3rem] h-full bg-black"
   >
     <div video-container class="lg:row-span-1 lg:col-span-1 h-full">

@@ -32,7 +32,7 @@
         <span>{{ catalog.title }}</span>
       </div>
     </div>
-    <div class="flex flex-col items-center bg- p-2 max-h-full overflow-scroll">
+    <div class="flex flex-col items-center bg- p-2 max-h-full">
       <RouterView />
     </div>
   </div>
