@@ -25,9 +25,3 @@ const isHeaderFooterVisible = computed(() => {
   return !!route.meta.showHeader;
 });
 </script>
-
-<style scoped>
-.app-body {
-  /* height: calc(100% - 64px - 50px); */
-}
-</style>
