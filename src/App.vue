@@ -1,10 +1,17 @@
 <template>
-  <div class="flex flex-col h-full" :class="[isHeaderFooterVisible ? '' : 'h-full']">
-    <header-component :is-header-footer-visible="isHeaderFooterVisible"></header-component>
-    <main class="flex-1 app-body" :class="[isHeaderFooterVisible ? 'mt-16' : '']">
+  <div
+    class="h-full max-h-screen"
+    :class="[isHeaderFooterVisible ? 'grid grid-cols-1 grid-rows-[64px_1fr_50px] ' : '']"
+  >
+    <div>
+      <header-component :is-header-footer-visible="isHeaderFooterVisible"></header-component>
+    </div>
+    <div :class="[!isHeaderFooterVisible ? 'h-full' : '']">
       <RouterView />
-    </main>
-    <footer-component :is-header-footer-visible="isHeaderFooterVisible"></footer-component>
+    </div>
+    <div>
+      <footer-component :is-header-footer-visible="isHeaderFooterVisible"></footer-component>
+    </div>
   </div>
 </template>
 
@@ -21,6 +28,6 @@ const isHeaderFooterVisible = computed(() => {
 
 <style scoped>
 .app-body {
-  height: calc(100% - 64px);
+  /* height: calc(100% - 64px - 50px); */
 }
 </style>
