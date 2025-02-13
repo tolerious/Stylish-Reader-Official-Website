@@ -11,8 +11,6 @@
         </div>
         <!-- 中英文当前字幕显示区域 -->
         <div
-          @mouseover="handleCurrentTranscriptMouseOver"
-          @mouseleave="handleCurrentTranscriptMouseLeave"
           class="text-zinc-400 pt-3 text-center lg:grid grid-cols-1 grid-rows-2 items-center hidden"
         >
           <div class="text-2xl text-amber-400 cursor-pointer" v-if="isEnglishTranscriptVisible">
